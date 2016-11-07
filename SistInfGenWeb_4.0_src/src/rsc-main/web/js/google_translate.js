@@ -1,0 +1,4 @@
+<a href="javascript:var t=((window.getSelection&amp;&amp;window.getSelection())||(document.getSelection&amp;&amp;document.getSelection())||(document.selection&amp;&amp;document.selection.createRange&amp;&amp;document.selection.createRange().text));var e=(document.charset||document.characterSet);if(t!=''){location.href='http://translate.google.com/translate_t?text='+t+'&amp;hl=es&amp;langpair=auto|en&amp;tbb=1&amp;ie='+e;}else{location.href='http://translate.google.com/translate?u='+escape(location.href)+'&amp;hl=es&amp;langpair=auto|en&amp;tbb=1&amp;ie='+e;};" 
+   onclick="alert(document.getElementById('instructions').firstChild.nodeValue);return false;">
+   <img class="gif" src="http://www.google.com/intl/es/images/logos/translate_logo.gif" alt="Google Translate" />
+</a>	

@@ -1,0 +1,2 @@
+Class-Path: lib\*.jar lib\cobertura-2.0.3.jar lib\csvjdbc-1.0-22.jar lib\javassist-3.18.2-GA.jar lib\jcommon-1.0.12.jar lib\jfreechart-1.0.9.jar lib\jfreechart-1.0.9-swt.jar lib\log4j-1.2.17.jar lib\junit-4.11.jar lib\log4j-1.2.17.jar lib\mockito-all-1.10.8.jar lib\powermock-mockito-1.6.1-full.jar 
+Main-Class: ubu.digit.util.Generator

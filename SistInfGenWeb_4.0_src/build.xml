@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project basedir="." name="SistInfGen" default="runnable">
+
+	<description>
+      Generacion de un Portal para la gestion en la asignatura de Sistemas Informaticos 
+	  de 5 de Ingenieria Informatica de la Universidad de Burgos.
+    </description>
+
+	<!-- ================== Definición de las propiedades del proyecto ======================= -->
+
+	<!-- Los fuente de la aplicación y sus añadidos van en este directorio -->
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="src.main.dir" value="${src.dir}/main" />
+	<property name="src.test.dir" value="${src.dir}/test" />
+
+	<!-- Las librerias incluidas en los fuente -->
+	<property name="lib.dir" value="${basedir}/lib" />
+
+	<!-- Los recursos necesarios para la compilación y ejecución de la aplicación -->
+	<property name="src.test.dir" value="${src.dir}/rsc-test" />
+	<property name="rsc.main.dir" value="${src.dir}/rsc-main" />
+
+	<!-- Los recursos de datos necesarios ejecución de la aplicación -->
+	<property name="rsc.main.data" value="${rsc.main.dir}/data" />
+	<property name="rsc.test.data" value="${rsc.test.dir}/data" />
+
+	<!-- Los recursos web necesarios ejecución de la aplicación -->
+	<property name="rsc.main.web" value="${rsc.main.dir}/web" />
+
+	<!-- Carpeta de trabajo para las compilaciones -->
+	<property name="build.dir" value="${basedir}/build" />
+
+	<!-- En esta carpeta se guarda la aplicación compilada y preparada para ser ejecutada -->
+	<property name="run.dir" value="${basedir}/runnable" />
+
+	<!-- Los recursos de datos necesarios en el despliegue  de la aplicación -->
+	<property name="run.rsc.data" value="${run.dir}/data" />
+	<property name="run.rsc.web" value="${run.dir}/web" />
+
+	<!-- Las librerías necesarias en el despliegue  de la aplicación -->
+	<property name="run.lib" value="${run.dir}/lib" />
+
+	<!-- En esta carpeta se almacena la documentación javadoc-->
+	<property name="javadoc.dir" value="${basedir}/doc" />
+
+	<!--  ==================== Opciones de compilacion ==================== -->
+
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="false" />
+	<property name="compile.optimize" value="false" />
+
+	<!-- ==================== Definicion de CLASSPATH ====================================== -->
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="javadoc.classpath">
+		<dirset dir="${src.main.dir}" />
+		<dirset dir="${src.test.dir}" />
+	</path>
+
+	<path id="properties">
+		<dirset dir="${config.dir}" />
+	</path>
+
+	<path id="junit.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="junit-4.11.jar" />
+		</fileset>
+	</path>
+
+	<!-- ==================== Definicion de Tareas===================================== -->
+	<target name="init" description="Genera los directorios donde obtener los resultados de las tareas">
+		<mkdir dir="${build.dir}" />
+
+		<mkdir dir="${run.dir}" />
+		<mkdir dir="${run.rsc.data}" />
+		<mkdir dir="${run.rsc.web}" />
+		<mkdir dir="${run.rsc.web}/css" />
+		<mkdir dir="${run.rsc.web}/font" />
+		<mkdir dir="${run.rsc.web}/html" />
+		<mkdir dir="${run.rsc.web}/js" />
+		<mkdir dir="${run.rsc.web}/images" />
+		<mkdir dir="${run.rsc.web}/images/metrics" />
+		<mkdir dir="${run.rsc.web}/rss" />
+		<mkdir dir="${run.lib}" />
+
+	</target>
+
+	<target name="compile" depends="init" description="Compila">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="yes" includeantruntime="false">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="runnable" depends="compile" description="Crea la distribución binaria.">
+
+		<!-- Copia los archivos de la de datos de la aplicación -->
+		<copy todir="${run.rsc.data}">
+			<fileset dir="${rsc.main.data}" />
+		</copy>
+		<!-- Copia los LEEME.txt y licencia de la aplicación -->
+		<copy file="${rsc.main.dir}/LEEME.TXT" todir="${run.dir}" />
+
+		<!-- Copia los archivos de recursos web de la aplicación -->
+		<copy todir="${run.rsc.web}/css">
+			<fileset dir="${rsc.main.web}/css" />
+		</copy>
+		<copy todir="${run.rsc.web}/font">
+			<fileset dir="${rsc.main.web}/font" />
+		</copy>
+		<copy todir="${run.rsc.web}/html">
+			<fileset dir="${rsc.main.web}/html" />
+		</copy>
+		<copy todir="${run.rsc.web}/js">
+			<fileset dir="${rsc.main.web}/js" />
+		</copy>
+		<copy todir="${run.rsc.web}/images">
+			<fileset dir="${rsc.main.web}/images/" excludes="**/*.vsd" />
+		</copy>
+
+		<!-- Copia los archivos de las librerías necesarias para la ejecución -->
+		<copy todir="${run.lib}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+
+		<!-- Copia el properties de log4j -->
+		<copy todir="${build.dir}">
+			<fileset dir="${src.main.dir}" includes="*.properties" />
+		</copy>
+
+
+		<!-- Crea el fichero JAR en el directorio de distribución -->
+		<jar basedir="${build.dir}" manifest="${src.dir}/configuration.txt" destfile="${run.dir}/SistInfGenWeb.jar" />
+
+	</target>
+
+
+	<target name="javadoc" description="Crea la documentación de la aplicacion en formato html con Javadoc, pueden ser encontradas en docs\javadoc." depends="compile">
+		<mkdir dir="${javadoc.dir}" />
+		<javadoc destdir="${javadoc.dir}/main" Author="yes" Version="yes" sourcepath="${src.dir}/main" encoding="utf-8">
+			<classpath path="${compile.classpath}">
+				<fileset dir="${lib.dir}">
+					<include name="cobertura-2.0.3.jar" />
+					<include name="csvjdbc-1.0-22.jar" />
+					<include name="javassist-3.18.2-GA.jar" />
+					<include name="jcommon-1.0.12.jar" />
+					<include name="jfreechart-1.0.9.jar" />
+					<include name="jfreechart-1.0.9-swt.jar" />
+					<include name="log4j-1.2.17.jar" />
+					<include name="junit-4.11.jar" />
+					<include name="log4j-1.2.17.jar" />
+					<include name="mockito-all-1.10.8.jar" />
+					<include name="powermock-mockito-1.6.1-full.jar" />
+
+				</fileset>
+			</classpath>
+			<fileset dir="${src.dir}" casesensitive="yes">
+				<include name="ubu\lsi\ii\sistinf\**\*.java" />
+			</fileset>
+			<link href="http://docs.oracle.com/javase/7/docs/api/" packagelistLoc="${rsc.dir}\packagelists\java" offline="true" />
+			<link href="http://www.jfree.org/jfreechart/api/javadoc/" packagelistLoc="${rsc.dir}\packagelists\jfreechart" offline="false" />
+		</javadoc>
+	</target>
+
+	<target name="clean" description="Elimina los directorios de las tareas.">
+		<delete dir="${build.dir}" />
+		<delete dir="${run.dir}" />
+		<delete dir="${run.lib}" />
+		<delete dir="${javadoc.dir}" />
+	</target>
+
+</project>

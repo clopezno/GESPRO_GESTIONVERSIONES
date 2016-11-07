@@ -1,0 +1,32 @@
+4.0
+- Se crea un formulario para la tabla proyectos.
+- Se externalizan ciertas cofiguraciones de la aplicación.
+- Se corrigen los fallos relacionados con los cursos académicos.
+- Se modifica el diseño de todos los ficheros HTML.
+3.0
+- Se incluyen código html en la página de Historico de producto con dos video tutoriales de como realizar el proceso de métricas con Source Monitor. 
+- Se incluye una cabecera en todas las páginas con enlaces de interés de la UBU
+- Se incluye un applet que sirve para autoevaluar el código de los alumnos segun las métricas de proyectos.
+2.09
+- Se corrige calenadario para coger fechas de Julio
+- Se añade un botón para la traducción de los documentos con el servicio Google translate
+- Se corrige el calendario para cambiar de año académico a partir de agosto.
+2.08
+- Se corrige un bug en el calendario para determinar el año actual.
+- Se añade una version preliminar de RSS.
+con el curso.
+2.07
+- Se mejora la generación de la página de información general añadiendo un calendario
+2.06
+- Se incluye un script para añadir trazabilidad de difusión addThis
+2.05
+- Cambiar gráfico de estadisticas de cursos en documento histórico para visuliazar el análisis temporal y añadir dos nuevas métricas por curso nota media y tiempo de presentación.
+2.04
+- Solución problemas de visibilidad en de acentos Escritura de ficheros en java con el encoding CHARSET = "ISO-8859-1"
+2.03
+- Se corrige el problema de los tooltips en las cabeceras de las tablas de métricas, pasando a ser MIN Q1 AVG MED Q3 MAX
+2.02
+- Se corrige en métricas de proyectos el orden de los datos que representan los intervalos, pasando a ser MIN Q1 AVG MED Q3 MAX
+2.01
+-Se corrige en proyectos actuales la métrica de número de tutores involucrados
+-Se corrige en el histórico  la métrica de número de tutores involucrados por curso
