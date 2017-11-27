@@ -1,0 +1,91 @@
+# Created by https://www.gitignore.io/api/android,intellij,opencv,gradle
+
+### Android ###
+# Built application files
+*.apk
+*.ap_
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+
+# Gradle files
+.gradle/
+build/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Sensitive files
+secrets/
+secrets\.tar
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
+
+### Android Patch ###
+gen-external-apklibs
+
+### Intellij ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839-How-to-manage-projects-under-Version-Control-Systems
+
+# User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+
+# Gradle:
+*.iml
+.idea/**/gradle.xml
+.idea/**/misc.xml
+.idea/**/libraries
+
+# CMake
+cmake-build-debug/
+
+# Sonarlint plugin
+.idea/sonarlint
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+### OpenCV ###
+#OpenCV for Mac and Linux
+#build and release folders
+*/CMakeFiles
+*/CMakeCache.txt
+*/Makefile
+*/cmake_install.cmake
+.DS_Store
+
+# End of https://www.gitignore.io/api/android,intellij,opencv,gradle
