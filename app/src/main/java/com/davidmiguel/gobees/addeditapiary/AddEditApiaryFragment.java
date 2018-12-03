@@ -42,7 +42,7 @@ import com.davidmiguel.gobees.utils.AndroidUtils;
 
 import java.util.Locale;
 
-import rebus.permissionutils.AskAgainCallback;
+import rebus.permissionutils.AskagainCallback;
 import rebus.permissionutils.PermissionEnum;
 import rebus.permissionutils.PermissionManager;
 import rebus.permissionutils.PermissionUtils;
@@ -79,12 +79,12 @@ public class AddEditApiaryFragment extends Fragment implements AddEditApiaryCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.addeditapiary_frag, container, false);
-        nameEditText = root.findViewById(R.id.add_apiary_name);
-        latitudeEditText = root.findViewById(R.id.add_apiary_latitude);
-        longitudeEditText = root.findViewById(R.id.add_apiary_longitude);
-        getLocationIcon = root.findViewById(R.id.get_location_icon);
-        locationPrecisionTextView = root.findViewById(R.id.location_precision);
-        notesEditText = root.findViewById(R.id.add_apiary_notes);
+        nameEditText = (EditText) root.findViewById(R.id.add_apiary_name);
+        latitudeEditText = (EditText) root.findViewById(R.id.add_apiary_latitude);
+        longitudeEditText = (EditText) root.findViewById(R.id.add_apiary_longitude);
+        getLocationIcon = (ImageView) root.findViewById(R.id.get_location_icon);
+        locationPrecisionTextView = (TextView) root.findViewById(R.id.location_precision);
+        notesEditText = (EditText) root.findViewById(R.id.add_apiary_notes);
 
         setHasOptionsMenu(true);
         setRetainInstance(true);
@@ -104,7 +104,8 @@ public class AddEditApiaryFragment extends Fragment implements AddEditApiaryCont
         });
 
         // Configure floating action button
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_apiary);
+        FloatingActionButton fab =
+                (FloatingActionButton) getActivity().findViewById(R.id.fab_add_apiary);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,10 +199,10 @@ public class AddEditApiaryFragment extends Fragment implements AddEditApiaryCont
             return true;
         }
         // Ask for permission
-        PermissionManager.Builder()
+        PermissionManager.with(getActivity())
                 .permission(PermissionEnum.ACCESS_FINE_LOCATION)
-                .askAgain(true)
-                .askAgainCallback(new AskAgainCallback() {
+                .askagain(true)
+                .askagainCallback(new AskagainCallback() {
                     @Override
                     public void showRequestPermission(final UserResponse response) {
                         new AlertDialog.Builder(getActivity())
@@ -243,7 +244,7 @@ public class AddEditApiaryFragment extends Fragment implements AddEditApiaryCont
                         }
                     }
                 })
-                .ask(getActivity());
+                .ask();
         return false;
     }
 
@@ -255,8 +256,7 @@ public class AddEditApiaryFragment extends Fragment implements AddEditApiaryCont
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.handleResult(this, requestCode, permissions, grantResults);
+        PermissionManager.handleResult(requestCode, permissions, grantResults);
     }
 
     @Override
