@@ -15,7 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
-@@ -21,6 +21,12 @@ apply plugin: 'jacoco-android'
+ 
+apply plugin: 'jacoco-android'
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 apply plugin: 'realm-android'
@@ -35,7 +36,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
 
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 	
     defaultConfig {
         applicationId "com.davidmiguel.gobees"
