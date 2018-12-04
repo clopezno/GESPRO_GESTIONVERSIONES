@@ -41,6 +41,8 @@ android {
         applicationId "com.davidmiguel.gobees"
         minSdkVersion 19
         targetSdkVersion 26
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 crashlyticsKey: keystoreProperties['CrashlyticsKey']
