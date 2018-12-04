@@ -15,11 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
-
+@@ -21,6 +21,12 @@ apply plugin: 'jacoco-android'
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
+
+// App version
+ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
+ext.versionMinor = 2 // New features in a backwards-compatible manner
+ext.versionPatch = 0 // Backwards-compatible bug fixes
+ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
 // Get signing config
 def keystorePropertiesFile = rootProject.file("secrets/keystore.properties")
@@ -30,22 +37,7 @@ android {
 
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
-
-    defaultConfig {
-        applicationId "com.davidmiguel.gobees"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 11
-        versionName "v1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                crashlyticsKey: keystoreProperties['CrashlyticsKey']
-        ]
-        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
-        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
-        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
-    }
-
+	
     signingConfigs {
         debug {
             keyAlias keystoreProperties['keyAliasDebug']
@@ -59,6 +51,33 @@ android {
             keyAlias keystoreProperties['keyAliasRelease']
             keyPassword keystoreProperties['keyPasswordRelease']
         }
+    }
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = keystoreProperties['serviceAccountEmail']
+            jsonFile = file(keystoreProperties['googlePlayKey'])
+        }
+    }
+     play {
+	 
+        track = 'beta'
+    }
+	
+     defaultConfig {
+        applicationId "com.davidmiguel.gobees"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                crashlyticsKey: keystoreProperties['CrashlyticsKey']
+        ]
+        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
+        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
+        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     buildTypes {
@@ -243,8 +262,8 @@ afterEvaluate {
 
 /*
 SonarQube configuration.
-*/
-sonarqube {
+/*
+ sonarqube {
     properties {
         property "sonar.projectName", "GoBees"
         property "sonar.projectKey", "com.davidmiguel.gobees"
@@ -257,6 +276,36 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.jacoco.reportMissing.force.zero", true
     }
+}
+
+/**
+ * Returns the number of the current build in Travis.
+ */
+private static Integer getBuildNumber() {
+    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 1
+}
+ /**
+ * Version code: MMMmmppbbb
+ */
+private Integer generateVersionCode() {
+    Integer versionCode = ext.versionMajor * 10000000 +
+            ext.versionMinor * 100000 +
+            ext.versionPatch * 1000 +
+            (getBuildNumber() % 1000)
+    println "Version code: " + versionCode
+    return versionCode
+}
+ /**
+ * Version name: <major>.<minor>.<patch>
+ * For mock, dev, tst and acc <build> is attached at the end.
+ */
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    println "Version name: " + versionName
+    return versionName;
 }
 
 /**
