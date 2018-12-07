@@ -38,7 +38,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
-  
     signingConfigs {
         debug {
             keyAlias keystoreProperties['keyAliasDebug']
@@ -53,16 +52,19 @@ android {
             keyPassword keystoreProperties['keyPasswordRelease']
         }
     }
+
 	playAccountConfigs {
-        defaultAccountConfig {
+         defaultAccountConfig {
             serviceAccountEmail = keystoreProperties['serviceAccountEmail']
             jsonFile = file(keystoreProperties['googlePlayKey'])
         }
     }
-     play {
+
+    play {
         track = 'beta'
     }
-     defaultConfig {
+
+    defaultConfig {
         applicationId "com.davidmiguel.gobees"
         minSdkVersion 19
         targetSdkVersion 26
@@ -77,7 +79,6 @@ android {
         buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
         playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
-
 
     buildTypes {
         debug {
@@ -196,7 +197,7 @@ dependencies {
     // Timber (logger) : https://github.com/JakeWharton/timber
     compile 'com.jakewharton.timber:timber:4.5.1'
     // Crashlytics (Crash reporting) : https://docs.fabric.io/android/changelog.html#crashlytics
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
 
