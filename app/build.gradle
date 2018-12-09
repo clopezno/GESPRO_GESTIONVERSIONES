@@ -21,6 +21,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
 // App version
 ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
@@ -38,21 +39,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
 	
-    defaultConfig {
-        applicationId "com.davidmiguel.gobees"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode generateVersionCode()
-        versionName generateVersionName()
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                crashlyticsKey: keystoreProperties['CrashlyticsKey']
-        ]
-        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
-        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
-        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
-    }
-
     signingConfigs {
         debug {
             keyAlias keystoreProperties['keyAliasDebug']
@@ -66,6 +52,33 @@ android {
             keyAlias keystoreProperties['keyAliasRelease']
             keyPassword keystoreProperties['keyPasswordRelease']
         }
+    }
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = keystoreProperties['serviceAccountEmail']
+            jsonFile = file(keystoreProperties['googlePlayKey'])
+        }
+    }
+     play {
+	 
+        track = 'beta'
+    }
+	
+     defaultConfig {
+        applicationId "com.davidmiguel.gobees"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                crashlyticsKey: keystoreProperties['CrashlyticsKey']
+        ]
+        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
+        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
+        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     buildTypes {
@@ -185,7 +198,7 @@ dependencies {
     // Timber (logger) : https://github.com/JakeWharton/timber
     compile 'com.jakewharton.timber:timber:4.5.1'
     // Crashlytics (Crash reporting) : https://docs.fabric.io/android/changelog.html#crashlytics
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
 
@@ -248,6 +261,9 @@ afterEvaluate {
     preBuild.dependsOn(copyResDirectoryToTestMockDebugClasses)
 }
 
+/*
+SonarQube configuration.
+/*
  sonarqube {
     properties {
         property "sonar.projectName", "GoBees"
@@ -267,7 +283,7 @@ afterEvaluate {
  * Returns the number of the current build in Travis.
  */
 private static Integer getBuildNumber() {
-    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 0
+    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 1
 }
  /**
  * Version code: MMMmmppbbb
