@@ -62,7 +62,7 @@ before_script:
 
 script:
     # Compile and run lint
-    - ./gradlew clean assembleProdRelease lint --stacktrace
+    - ./gradlew assembleProdRelease lint
     # Run test coverage report
 #    - ./gradlew jacocoTestMockDebugUnitTestReport
     # Run SonarQube analysis
