@@ -1,0 +1,64 @@
+\capitulo{7}{Conclusiones y Líneas de trabajo futuras}
+\section*{Conclusiones}
+A continuación, se detalla cómo se han cumplido todos los \hyperref[sec:objetivos]{Objetivos del Proyecto} planteados. Esto ha sido posible gracias a las capacidades adquiridas a lo largo de mi formación, que incluyen no solo habilidades técnicas, sino también capacidades resolutivas, las cuales se han visto fortalecidas durante la realización de este \acrfull{tfg}.
+
+\subsection{Cumplimiento de los objetivos}
+
+El proyecto ha logrado cumplir con todos los objetivos propuestos, tanto funcionales como no funcionales y personales:
+
+\subsubsection{Objetivos funcionales}
+\begin{itemize}
+	\item Generación de rutas turísticas personalizadas mediante modelos de lenguaje (\acrshort{llm}), encontrando como mejor solución el modelo \textit{gemini pro 1.5} de acceso a través de un servicio API.
+	\item Obtención de puntos de interés (\acrshort{pdi}) priorizados según criterios sostenibles, como deslocalización del turismo y medios de transporte ecológicos gracias al desarrollo de prototipos que han permitido utilizar técnicas y mejorar el prompt de comunicación con el modelo.
+	\item Visualización de rutas en mapas utilizando herramientas \acrshort{sig} de Google
+	\item Optimización para ciclistas y peatones, priorizando carriles exclusivos y seguridad gracias a las directivas de \textit{Google Directions}.
+	\item Sistema de gestión de rutas que permite a los usuarios guardar y cargar tours gracias a \textit{Firestore Cloud de Firebase.}
+\end{itemize}
+
+\subsubsection{Objetivos no funcionales}
+Se cumplieron los siguientes aspectos:
+\begin{itemize}
+	\item Integración de tecnologías avanzadas como \acrshort{nlp} mediante \acrshort{llm}, garantizando un rendimiento estable y una experiencia de usuario satisfactoria.
+	\item Diseño de una interfaz centrada en la usabilidad, logrando una interacción sencilla e intuitiva para el usuario final aplicando técnicas aprendidas en asignaturas de la carrera aplicadas al entorno \textit{Flutter y Dart.}
+\end{itemize}
+
+\subsubsection{Objetivos personales}
+Este proyecto ha representado un hito personal, permitiéndome:
+\begin{itemize}
+	\item Formarme en la integración de \acrshort{llm} en aplicaciones software.
+	\item Poner en práctica los conocimientos adquiridos en cursos de autoformación en \textbf{Dart} y \textbf{Flutter}.
+	\item Desarrollar una aplicación profesional que será parte de mi portafolio para futuros empleadores.
+	\item Culminar mi formación académica como Ingeniero Informático.
+\end{itemize}
+
+\subsection{Reflexiones sobre el proceso de investigación}
+Uno de los mayores retos durante el desarrollo de este \acrshort{tfg} fue la dificultad para encontrar referencias y recursos debido a la novedad de algunas tecnologías utilizadas. Por ejemplo:
+\begin{itemize}
+	\item Herramientas para el uso de modelos \acrshort{llm}, como Langflow.
+	\item Implementación de soporte para Dart en SonarCloud.
+	\item Conexión de servicios de modelos \acrshort{llm} en dispositivos móviles.
+\end{itemize}
+
+Esta situación requirió mantenerse actualizado y adaptar el proyecto a un entorno de rápida evolución tecnológica. Sin embargo, estas dificultades se convirtieron en una oportunidad para desarrollar habilidades clave que seguro serán valiosas en mi futuro profesional y académico. 
+
+\subsection{Valoración personal}
+Considero que este proyecto ha sido todo un éxito. Ha sido una experiencia enriquecedora desarrollar una aplicación desde sus cimientos. He aplicado y asimilado el enfoque de mi tutor tanto para el desarrollo técnico como para la investigación, documentación y resolución de problemas. Este enfoque me ha permitido completar el \acrshort{tfg} y obtener una valiosa experiencia que trasciende el ámbito académico.
+
+\textbf{La aplicación desarrollada es funcional, robusta y sobretodo útil}. Con pequeños ajustes para garantizar su sostenibilidad económica, podría publicarse sin problemas. Su diseño cubre un nicho en el mercado que podría ser aprovechado por instituciones locales o regionales para fomentar el turismo sostenible.
+
+Los \acrfull{llm} han transformado el paradigma de la Informática desde su aparición, consolidándose como una valiosa fuente de conocimiento en múltiples áreas, incluida la Ciencia de Datos. El desarrollo de esta aplicación demuestra cómo estas herramientas, lejos de ser vistas como una amenaza, pueden integrarse como fuente de datos en aplicaciones de uso general. Con el entrenamiento adecuado, su potencial puede ampliarse aún más para desarrollar aplicaciones móviles o web diseñadas para casos de uso específicos, trascendiendo su aplicación tradicional en chatbots.
+
+Por último, el desarrollo de \textit{Eco City Tours} demuestra la viabilidad de integrar tecnologías modernas como \acrshort{llm}, \textit{Flutter} y servicios de Google para crear soluciones que beneficien tanto a los usuarios como a la sociedad en general.
+
+
+
+\section*{Líneas de trabajo futuras}
+Este TFG termina con la entrega de una versión funcional completa y estable para poder ser utilizada por usuarios que quieran planificar rutas turísticas sostenibles. Durante el desarrollo de este TFG han surgido muchas líneas de trabajo futuro que pueden servir cómo punto de partida en el caso de ponerse en explotación. A continuación se enuncian algunas líneas que pueden ayudar a definir una futura evolución funcional.
+\begin{itemize}
+    \item \textbf{Gamificación:} Incluir recompensas por rutas completadas o distancia recorrida con un medio ecológico. Logros que desbloqueen aspectos visuales del icono de la aplicación.
+    \item \textbf{Ratings:} Publicar y valorar las tours generados permitiendo la búsqueda de los mismos a otros usuarios.
+    \item \textbf{Planificador de rutas:} Añadir otras fuentes de datos que optimicen la sostenibilidad de los tours, por ejemplo, utilizando información por satélite para definir rutas basadas en áreas con mayor cobertura de sombra.
+    \item \textbf{Multiplataforma:} La aplicación podría beneficiarse de su adaptación a otras plataformas, donde se tendría que tener en cuenta principalmente los permisos de localización. Al utilizar Flutter esta adaptación se podría realizar sobre el mismo código base, facilitando en gran medida su consecución. De hecho se trató de conseguir desde un principio en el desarrollo de este \acrlong{tfg} su adaptación a iOS configurando los permisos de localización, sin embargo para probar estas funcionalidades es necesario contar con un equipo Mac. Legalmente, no es posible emular macOS en máquinas virtuales en otras plataformas, y tampoco se disponía de un equipo Mac propio ni de acceso a uno en préstamo. 
+	\item \textbf{Reconocimiento de lugares (Landmark Recognition):} Firebase ofrece una función avanzada de reconocimiento de lugares~\cite{firebase_mlkit_landmarks} que permitiría añadir una capa de personalización en la aplicación. Esta funcionalidad permitiría al usuario tomar una foto de uno de los \acrlong{pdi} visitados, y la aplicación podría identificar automáticamente el lugar y actualizar el estado de la ruta en tiempo real, indicando que se ha completado la visita. Esta mejora no solo facilitaría el seguimiento de la ruta, sino que también proporcionaría una experiencia de usuario más interactiva y dinámica.
+	\item \textbf{Registro y autenticación de usuarios:} Para implementar algunas de las mejoras propuestas, es necesaria una gestión integral de usuarios. Actualmente, no existe un proceso de registro o autenticación, ya que es Cloud Firestore quien asigna un identificador único a cada usuario. Aunque esta gestión permite identificar los \textit{Eco City Tours} generados por cada usuario, presenta limitaciones, como la pérdida de acceso a los tours al reinstalar la aplicación, debido a la asignación de un nuevo identificador. Además, los tours previos quedarían en la base de datos sin posibilidad de ser recuperados. Implementar un sistema de registro y autenticación una vez configurado Firebase sería una tarea relativamente sencilla, que incluiría generar una pantalla de registro y acceso, así como modificar la configuración de Cloud Firestore para incluir módulos de autenticación mediante servicios como correo electrónico o cuentas de Google.
+\end{itemize}

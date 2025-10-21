@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the createCircularImageWithBorder function from the custom_image_marker library, for the Dart programming language.">
+  <title>createCircularImageWithBorder function - custom_image_marker library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">project_app</a></li>
+    <li><a href="../helpers_custom_image_marker/helpers_custom_image_marker-library.html">helpers\custom_image_marker.dart</a></li>
+    <li class="self-crumb">createCircularImageWithBorder function</li>
+  </ol>
+  <div class="self-name">createCircularImageWithBorder</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="helpers_custom_image_marker&#47;helpers_custom_image_marker-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">createCircularImageWithBorder</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a></span>&gt;</span></span>
+<span class="name ">createCircularImageWithBorder</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="createCircularImageWithBorder-param-image"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Image-class.html">Image</a></span> <span class="parameter-name">image</span>, {</span></li>
+<li><span class="parameter" id="createCircularImageWithBorder-param-borderColor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a></span> <span class="parameter-name">borderColor</span> = <span class="default-value">Colors.green</span>, </span></li>
+<li><span class="parameter" id="createCircularImageWithBorder-param-borderWidth"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">borderWidth</span> = <span class="default-value">4</span>, </span></li>
+</ol>})
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Crea una imagen circular con un borde alrededor.</p>
+<ul>
+<li><code>image</code>: Imagen original que se transformará en un círculo.</li>
+<li><code>borderColor</code>: Color del borde (por defecto, verde).</li>
+<li><code>borderWidth</code>: Grosor del borde (por defecto, 4).</li>
+</ul>
+<p>Retorna un <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a> con la imagen transformada o lanza una excepción
+en caso de error.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;Uint8List&gt; createCircularImageWithBorder(ui.Image image,
+    {Color borderColor = Colors.green, double borderWidth = 4}) async {
+  try {
+    log.d(
+        &#39;createCircularImageWithBorder: Iniciando creación de imagen circular.&#39;);
+
+    final double imageSize = image.width.toDouble();
+    final double size = imageSize + borderWidth * 2;
+
+    log.d(
+        &#39;createCircularImageWithBorder: Dimensiones calculadas. Tamaño: $size&#39;);
+
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+
+    final center = Offset(size &#47; 2, size &#47; 2);
+    final radius = imageSize &#47; 2;
+
+    final Paint borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.fill;
+
+    log.d(&#39;createCircularImageWithBorder: Dibujando el círculo de borde.&#39;);
+
+    canvas.drawCircle(center, radius + borderWidth, borderPaint);
+
+    final Rect imageRect = Rect.fromCircle(center: center, radius: radius);
+    canvas.clipPath(Path()..addOval(imageRect));
+    canvas.drawImage(image, imageRect.topLeft, Paint());
+
+    log.d(&#39;createCircularImageWithBorder: Imagen dibujada sobre el lienzo.&#39;);
+
+    final picture = recorder.endRecording();
+    final img = await picture.toImage(size.toInt(), size.toInt());
+    final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
+
+    if (byteData == null) {
+      log.e(
+          &#39;createCircularImageWithBorder: Fallo al convertir la imagen a bytes.&#39;);
+      throw Exception(&#39;Error al convertir la imagen a bytes.&#39;);
+    }
+
+    log.d(&#39;createCircularImageWithBorder: Imagen circular creada con éxito.&#39;);
+
+    return byteData.buffer.asUint8List();
+  } catch (e, stackTrace) {
+    log.e(
+        &#39;createCircularImageWithBorder: Error durante la creación de la imagen circular.&#39;,
+        error: e,
+        stackTrace: stackTrace);
+    throw Exception(&#39;Error al crear imagen circular: $e&#39;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">project_app</a></li>
+    <li><a href="../helpers_custom_image_marker/helpers_custom_image_marker-library.html">custom_image_marker</a></li>
+    <li class="self-crumb">createCircularImageWithBorder function</li>
+</ol>
+
+
+    <h5>custom_image_marker library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    project_app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

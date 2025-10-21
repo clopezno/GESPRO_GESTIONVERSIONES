@@ -1,0 +1,52 @@
+\capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
+
+Durante el desarrollo de un \acrlong{tfg}, es inevitable tomar decisiones que impactan de manera significativa en el resultado final. En este capítulo se describen las decisiones clave que han influido en la evolución y estado final de \textit{Eco City Tours}. La justificación de estas decisiones se espera que pueda servir como una referencia útil para futuros compañeros o desarrolladores que enfrenten objetivos similares. 
+
+\section{Elección de servicios Google sobre tecnología \acrlong{osm}}
+
+Desde un comienzo en el proyecto se quería utilizar \textbf{código abierto}, pues su filosofía se alinea mejor con los valores aprendidos en la Universidad, donde se promociona el uso de herramientas que no supongan un coste para el estudiante, se fomenta su uso evitando la posible discriminación económica y una forma de trabajar colaborativa.
+
+De manera renuente se decide cambiar los servicios necesarios para la visualización y gestión de marcadores y rutas a los establecidos por Google. Los motivos que propiciaron este gran cambio fueron los siguientes:
+\begin{itemize}
+	\item \textbf{Soporte de un gigante tecnológico}: las herramientas de código abierto aunque algunas tienen un gran seguimiento por la comunidad no pueden competir con la documentación, ejemplos de desarrolladores y tecnología de uso de una potencia como Google.
+	\item \textbf{Integración}: Flutter forma parte de Google, lo que supone una integración nativa que hace de su funcionamiento y robustez una de las herramientas usadas.
+	\item \textbf{Riesgos asociados a complementos de terceros}: Durante el desarrollo, se exploraron soluciones como \acrfull{osrm} para gestionar rutas, pero estas requerían procesar manualmente las conexiones con el servicio o confiar en paquetes de terceros. Estos paquetes, aunque facilitan el desarrollo, presentan un riesgo mayor debido a su posible discontinuidad o incompatibilidad con futuras actualizaciones. En cambio, el uso de herramientas como Dio~\cite{dio_package}, un paquete marcado como favorito por Flutter, garantiza un soporte nativo y más estable en el ecosistema de Google.
+\end{itemize} 
+
+\section{Elección de google generative ai como primer LLM}
+Durante el desarrollo se estudiaron múltiples opciones a la hora de obtener la información desde un modelo \acrshort{llm}. 
+Siguiendo con el ecosistema de Google se probó con éxito el modelo \textit{gemini-1.5-flash} gracias al paquete \textit{google\_generative\_ai} que permite configurar el modelo desde su página web para más tarde exportar la configuración a un archivo Dart. Sus resultados se ajustaban dinámicamente a las preferencias del usuario. Tras mejorar la precisión de las coordenadas GPS, los datos generados comenzaron a reflejar ubicaciones correctas de manera consistente.
+\
+
+\section{Aclaración sobre el coste de Servicios Google}
+Para la versión inicial de la aplicación de este \acrshort{tfg}, se optó por utilizar MapBox~\cite{mapbox}, una plataforma de mapas con características similares a las de Google. Sin embargo, a medida que avanzaba el desarrollo, se fueron integrando cada vez más servicios de Google, hasta el punto de reemplazar el servicio de optimización de rutas por el de Google. En cada cambio se evaluaba cuidadosamente si el número de peticiones mensuales superaría el límite que generaría costos adicionales para el desarrollador. No obstante, tras estimar que el número de peticiones estaría muy por debajo del umbral que implicaría un coste, se decidió aprovechar las ventajas de trabajar dentro de un mismo ecosistema. Como se muestra en la Figura \ref{fig:trafico_google} las peticiones de los diferentes servicios distan mucho de las 40.000 peticiones que permite gratuitamente Google durante el desarrollo de sus aplicaciones.
+  \imagen{trafico_google}{Estadísticas de solicitudes de servicios}{1}
+  
+\section{Puntos de interés con LLM: alucinaciones y optimización de rutas turísticas}
+Durante las exhaustivas pruebas realizadas con el modelo flash de Gemini se observó que las direcciones web obtenidas desde el modelo tanto para las imágenes de los \acrshort{pdi} como para la información eran casi siempre no válidas. Quizá porque en el tiempo desde que se publicó el modelo hasta su uso, esta información quedó desactualizada o bien simplemente porque el modelo en su afán por aportar una respuesta la alucinaba.
+Para obtener mejor información de los \acrlong{pdi} se recurrió al ecosistema Google optando por Google Places.
+
+\subsection{Elección de Google Places}
+Se consideró utilizar otros servicios de obtención de imágenes de los \acrshort{pdi} en Internet, como Unsplash~\cite{unsplash}, o incluso la API de búsqueda de Google. Sin embargo, en términos de coste, resultaba preocupante que estas alternativas incurrieran en gastos tras superar el límite de 100 peticiones diarias. Finalmente, se descartaron estas opciones y se adoptó como solución el servicio de Google Places, que utiliza la misma clave API que se emplea para la gestión de mapas. Este servicio, además de proporcionar más información sobre los \acrlong{pdi}, ofrece una imagen fiable que se puede almacenar en caché gracias al paquete de flutter \textit{cached\_network\_image}.
+
+\subsection{Personalización de LLM}
+A la hora de obtener información que procesar por el método \acrshort{rag} se valoraron muchas fuentes de datos. Uno de los origenes de datos de información turística favoritos de los usuarios es Tripadvisor. Contar con la información actualizada de este gigante turístico suponía un gran aliciente. Sin embargo se desestimó su uso por varias razones: la información se podía obtener a través del método scraping o webscraping que toma la información en bruto de la página web y se podía postprocesar. Dicha práctica incumpliría los Términos de Uso del Servicio, ya que Tripadvisor usa un acceso a través de API para obtener la información de su base de datos. Se necesita una forma de pago para poder empezar a usar el servicio y su utilización, si sobrepasa las 5.000 peticiones al mes, incurriría en gastos al desarrollador. Se buscaron alternativas que funcionaran de manera análoga a Tripadvisor para nutrir el \acrshort{rag}.
+
+\subsection{Descarte del modelo local con \acrshort{rag} en favor de la versión Pro de Gemini}
+
+En este proyecto, se ha realizado un prototipo con Langflow, que se puede consultar en el archivo \href{https://github.com/fps1001/TFGII_FPisot/blob/main/project-prototypes/Langflow_explanation.md}{Langflow Explanation} para más detalles. En este prototipo se 
+demostró que un \acrshort{rag} alimentado con búsquedas en Internet no era apropiado por la rapidez que una petición que un dispositivo móvil requiere. El proceso de vectorización se demora muchos minutos y ese proceso se ha de hacer para cada generación de tour, con lo que no resulta sostenible. A pesar de mejorar la información con Google Places, la descripción a veces podía estar alucinada. 
+
+Se evaluó la posibilidad de utilizar resúmenes de servicios como Wikivoyage o Wikipedia. Sin embargo, el éxito de las consultas dependía de que el nombre del \acrshort{pdi} coincidiera exactamente con el registrado en la base de datos, lo cual rara vez ocurría. Por ejemplo, el \textit{Arco de San Esteban} en Burgos también es conocido como la \textit{Puerta de San Esteban}, lo que generaba inconsistencias, si incluías la ciudad en la búsqueda se perdía la coincidencia y por lo tanto los \acrlong{pdi} nunca se actualizaban. Además, otras fuentes alternativas a Google Places no proporcionaban descripciones satisfactorias a través de sus API.
+
+Ante estos desafíos, se decidió probar la versión Gemini 1.5 Pro, obteniendo resultados significativamente mejores. \textbf{Esta versión mantenía la originalidad y la precisión de la información, sin mostrar signos de alucinaciones} en las descripciones. Aunque la creación de la ruta demoraba unos segundos más, el resultado final era mucho más sólido. Las descripciones generadas incluso reflejaban un mayor entendimiento del contexto turístico, lo que implica que el rol del guía turistico \textit{concienciado sobre la gentrificación y la masificación de los lugares de interés} se aplicaba ahora dejándose notar no solo en la elección de los lugares a visitar.
+
+Además, gracias a la optimización en la ingeniería del prompt, se logró que las rutas propuestas se ajustaran mejor a límites razonables en los trayectos.
+
+\subsection{Mentoría y autoformación}
+
+El desarrollo de este proyecto no habría sido posible sin un proceso continuo de autoformación y la valiosa guía de David Miguel Lozano, un profesional experto en Flutter y LangChain, antiguo alumno de la Universidad de Burgos a quien contacté con el apoyo de mi tutor. Desde el inicio del proyecto, David desempeñó un papel fundamental como mentor, brindándome orientación técnica en aspectos clave del desarrollo, como la selección e integración de \acrlong{llm} o herramientas para el control de calidad del código. Su experiencia y disposición para resolver dudas específicas,  marcaron una diferencia significativa en mi comprensión y ejecución del proyecto.
+
+Además, tuve la oportunidad de analizar su \acrlong{tfg}~\cite{go-bees}, que me sirvió como referencia técnica. Este enfoque me permitió adaptar rápidamente soluciones efectivas al proyecto, asegurando una base sólida para el desarrollo.
+
+En paralelo, recurrí a cursos en línea como parte de mi autoformación, lo que me permitió familiarizarme con conceptos avanzados de \textit{Flutter y Dart}, consultando cuando me fue necesario conceptos complejos como la integración de \textit{Google Generative AI} y \textit{Firebase} en aplicaciones Flutter. Aunque estos recursos fueron utilizados como material de consulta y aprendizaje, el trabajo realizado en este proyecto es completamente original y adaptado a las necesidades específicas planteadas.

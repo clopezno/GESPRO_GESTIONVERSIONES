@@ -1,0 +1,115 @@
+\capitulo{3}{Conceptos teóricos}
+
+En este capítulo se describen los conceptos necesarios para comprender el funcionamiento de la aplicación desarrollada.
+
+\section{Sistemas de Información Geográfica (SIG)}
+	Un Sistema de Información Geográfica, comúnmente abreviado como \acrshort{sig} o \acrshort{gis}, es cualquier herramienta hardware o software que permita la realización de tareas sobre información que esté georreferenciada, es decir que los datos incluyen una ubicación en coordenadas geográficas~\cite{qgis_introduction_gis}.
+	Estas herramientas están específicamente diseñadas para trabajar con datos que no solo realizan operaciones usuales de inserción, eliminación, actualización y extracción en una base de datos común (\acrshort{crud}), sino que realizan análisis con respecto a la ubicación o características geoespaciales o topográficas. Junto con los análisis espaciales, proporciona una mejor visualización de los datos con mapas, de modo que se pueda presentar la información en una manera legible que de otro modo sería difícil de interpretar.
+	 
+	Estas herramientas están cada vez más presentes en diversos campos de la ciencia y la informática. Facilitan la toma de decisiones en áreas como el desarrollo urbano o la optimización de rutas. Además, son capaces de mejorar la gestión de empresas que ofrecen servicios descentralizados, como el suministro de agua o energía. Es por ello que su aplicación es clave también en el análisis del cambio climático y otros desafíos globales como los \acrlong{ods}.
+	
+	\subsection{Servicios GIS empleados en \textit{Eco City Tours}}
+	Los sistemas o herramientas con referencias geográficas son comúnmente utilizadas como servicios en el desarrollo de aplicaciones con componentes de información geográfica. Los proveedores de estos servicios facilitan datos georreferenciados según las peticiones del usuario. \textit{Eco City Tours} utiliza varios servicios GIS para su funcionamiento. Entre ellos se incluyen:
+	\begin{itemize}
+		\item \textbf{Servicio de mapas}: con Google como proveedor~\cite{google_maps} se usa este servicio para proveer a la aplicación de un mapa para mostrar de fondo así como marcadores y polilíneas de rutas.
+		
+		\item \textbf{Servicio de geocodificación}: sirve para obtener las coordenadas GPS de un \acrlong{pdi}. Se ha utilizado este servicio con el proveedor \textit{Google Directions}.
+		
+		\item \textbf{Servicio de navegación y de optimización de rutas}: el servicio de navegación~\cite{mapbox_directions} nos proporciona una ruta entre dos \acrlong{pdi} y el servicio de optimización permite generar una ruta que sea la más corta entre múltiples \acrshort{pdi} en el mapa. El proveedor de este servicio es MapBox~\cite{mapbox_optimization}.De esta manera se soluciona este problema popularmente conocido como \textit{el problema del viajante}~\cite{ubu_algoritmia} dando el recorrido más corto posible para el medio de transporte elegido en la petición al servicio.
+		
+	\end{itemize}
+	
+\section{Objetivos de Desarrollo Sostenible (ODS)}
+	Los \acrlong{ods} son una lista de 17 objetivos globales adoptados por la Asamblea General de la \acrfull{onu} el 25 de septiembre de 2015, como parte de la Agenda 2030 para el Desarrollo Sostenible. Según la \acrshort{onu}~\cite{un_sustainable_development}, ``\textit{los líderes mundiales adoptaron un conjunto de objetivos globales para erradicar la pobreza, proteger el planeta y asegurar la prosperidad para todos como parte de una nueva agenda de desarrollo sostenible. Cada objetivo tiene metas específicas que deben alcanzarse en los próximos 15 años}''.		
+	\imagen{odss}{Objetivos de Desarrollo Sostenible}{1}
+	Los \acrshort{ods} suceden a los \acrfull{odm}, que fueron formulados en el año 2000 y finalizados en 2015. A diferencia de los \acrshort{odm}, que se enfocaban principalmente en los países en desarrollo, los \acrshort{ods} son universales y están diseñados para ser aplicados por todos los países, sin importar su nivel de desarrollo. Los \acrlong{ods} son la incorporación de los tres pilares del desarrollo sostenible: económico, social y ambiental, están definidos por una perspectiva universal e indivisible que tiene en cuenta las relaciones entre los tres ámbitos.
+		
+	Los 17 ODS son un conjunto integral que abarca desafíos globales que afectan a la humanidad y el planeta (ver Fig. \ref{fig:odss}). Cada objetivo se desglosa en metas específicas y medibles. Algunos de los objetivos más relevantes para el marco de sostenibilidad y desarrollo urbano son los siguientes:
+	\begin{itemize}
+		\item \textbf{ODS 11}: \textit{Ciudades y comunidades sostenibles}: Busca hacer que las ciudades y los asentamientos humanos sean inclusivos, seguros, resilientes y sostenibles. Dado que más del 55\% de la población mundial vive en áreas urbanas, este objetivo es crucial para mejorar la calidad de vida y reducir el impacto ambiental en las ciudades. Incluye metas como el acceso a una vivienda adecuada y asequible, el transporte sostenible, la planificación urbana inclusiva y la reducción del impacto ambiental urbano.
+		
+		\item \textbf{ODS 13}: \textit{Acción por el clima}: Llama a tomar medidas urgentes para combatir el cambio climático y sus impactos, incluyendo la mitigación de emisiones de gases de efecto invernadero y la adaptación a los efectos adversos del cambio climático.
+		
+		\item \textbf{ODS 7}: \textit{Energía asequible y no contaminante}: Promueve el acceso universal a energía moderna, asequible, confiable y sostenible, lo que implica la expansión de las energías renovables y la mejora en la eficiencia energética. Este objetivo es clave para reducir las emisiones de carbono y combatir el cambio climático.
+		
+	\end{itemize}
+		
+
+\section{Modelos de lenguaje a gran escala (LLM)}
+Los modelos de lenguaje a gran escala son un tipo de inteligencia artificial que ha sido entrenada para realizar tareas de \acrfull{nlp}. Estas inteligencias artificiales son entrenadas con ingentes cantidades de datos que los hacen capaces de comprender peticiones y responder a éstas en los mismos términos de lenguaje, generando una comunicación entre el usuario y la máquina.
+	
+	\subsection{Técnicas de \gls{ingenieria_prompt}}
+	En el desarrollo de este \acrshort{tfg}, se han implementado y evaluado diversas técnicas de \gls{ingenieria_prompt} con el fin de mejorar la interacción y los resultados generados por los \acrshort{llm}. A continuación, se detallan las principales técnicas empleadas durante este proceso. Para obtener más información sobre estas técnicas y otras estrategias de \gls{ingenieria_prompt}, se puede consultar la guía disponible en \href{https://www.promptingguide.ai/es}{Prompting Guide}~\cite{promptingguide}.
+	
+	\gls{zero-shot} se trata de una técnica en la que el usuario no facilita al modelo ningún ejemplo de cómo realizar una tarea. El \acrshort{llm} por tanto interpreta basado en el contexto y su propio entrenamiento lo que se ha requerido y responde acorde a estos datos. Esta técnica se usa cuando lo que se prioriza es la rapidez del modelo frente a la precisión de la salida aportada. Cuando se requiere una mayor exactitud en la interacción, es recomendable emplear la técnica de \gls{few-shot}, que consiste en proporcionar al modelo algunos ejemplos en el prompt para guiarlo hacia una respuesta mejorada según el criterio del desarrollador.
+	
+	Una vez que se logra establecer el formato de las respuestas, es importante asegurar que el modelo sea capaz de interactuar con herramientas externas o APIs. Aquí es donde entra en juego la técnica de \gls{tool-calling}.
+	Se trata de una habilidad clave para construir chatbots o agentes potenciados por \acrshort{llm} que necesitan recuperar contexto o interactuar con herramientas externas convirtiendo el \acrlong{nlp} en llamadas a APIs.
+	Este enfoque de \gls{tool-calling} \textbf{permite una mejora en la modularidad del proyecto}. Al separar el nivel de abstracción, permite por ejemplo cambiar el modelo \acrshort{llm} de origen sin afectar al funcionamiento general del sistema, ya que la estructura de la salida permanece constante.
+
+	A continuación, se ilustra un ejemplo de cómo se nutre al modelo con una plantilla que sirve de estructura para la respuesta, obteniendo de manera consistente datos en formato JSON. Este ejemplo se puede encontrar en el \href{https://github.com/fps1001/TFGII_FPisot/tree/main/project-prototypes/prompting.ipynb}{prototipo Python} del proyecto: 
+	
+	\begin{lstlisting}[language=Python, caption={Ejemplo de uso de \textit{few-shot} y \textit{tool-calling} para obtener puntos de interés turísticos}]
+		# Un ejemplo de respuesta que queremos obtener seria la siguiente:
+		plantilla_salida = """[{
+			"nombre": "Sagrada Familia", "gps": "41.4036, 2.1744", 
+			"descripcion": "Basilica catolica disenada por Gaudi." 
+		},
+		{
+			"nombre": "Parc Guell", "gps": "41.4145, 2.1527", 
+			"descripcion": "Parque disenado por Gaudi."
+		}]"""
+		
+		ciudad = "Salamanca"
+		complete_and_print(f"""Tu rol es un guia turistico comprometido con el medio ambiente preocupado por la gentrificacion de las ciudades y el turismo masivo. 
+		Dime 3 sitios para visitar en {ciudad}. Quiero que la respuesta consista SOLO en los lugares de interes de este lugar, siguiendo el ejemplo de la {plantilla_salida}. Insisto en que no quiero que me des informacion adicional.""") # Resultado esperado:
+		[{
+			"nombre": "Catedral Vieja de Salamanca", 
+			"gps": "40.9708, -5.6619", 
+			"descripcion": "Edificio gotico del siglo XIII."
+		},
+		...
+		}]
+	\end{lstlisting}
+	
+	\subsection{Retrieval-Augmented Generation (RAG)}
+	Generación Aumentada por Recuperación o \gls{rag_glos} es una técnica usada en modelos de inteligencia artificial en la cual se obtiene información para nutrir a un \acrlong{llm} que ya ha sido entrenado, de esta manera amplía su conocimiento y es capaz de generar una respuesta más precisa, actualizada y completa.
+	
+	El problema que subyace en los modelos tradicionales es que una vez alimentados con un conjunto de datos, sufren de un aislamiento del mundo que los rodea. Para prevenir este problema se nutre de información que el usuario facilita siguiendo los siguientes pasos:
+	\begin{enumerate}
+		\item \textbf{Splitter y \gls{tokenizacion}}: La información proporcionada al modelo se divide en tokens, donde cada modelo tiene un límite máximo de tokens que puede procesar como contexto. Además, algunos modelos pueden cobrar al usuario por cada token procesado. Por lo tanto, es fundamental transformar una cadena de texto larga en fragmentos más pequeños y optimizados, utilizando tokens específicos para facilitar la comprensión por parte del modelo. Esta división previa es un paso necesario antes de recuperar la información.
+	
+		\item \gls{embeddings}: consiste en transformar la información facilitada y representarla en vectores de n dimensiones. Para ello se usa comúnmente otro modelo entrenado para transformar la información en vectores.
+		En la Figura~\ref{fig:langflow_rag_embeddings_gray} se puede ver cómo la información de Wikipedia API~\cite{wikimedia_api} se prepara para guardarse en una base de datos vectorial Astra DB~\cite{datastax_astra} para ello usa el modelo Ollama Embeddings
+		
+		\imagen{langflow_rag_embeddings_gray}{Preparación de la información de un RAG mostrada en la herramienta Langflow}{0.8}
+		
+		\item \textbf{RAG}: con la información ampliada ya vectorizada en una base de datos, el usuario genera una entrada o prompt al modelo. Como se ve en la Figura~\ref{fig:langflow_rag_retrieval_gray} el \acrshort{llm} OpenAI en este caso selecciona la información más afín de los datos aportados para generar así un prompt ampliado o mejorado que será facilitado al modelo para un procesamiento de información habitual, consiguiendo así un mejor resultado.
+		
+		\imagen{langflow_rag_retrieval_gray}{Chat Output a través de la salida de un RAG}{0.8}
+	\end{enumerate}
+		
+	\subsection{Agentes}
+	\label{sec:agentes}
+	La información que alimenta a los RAG puede ser un archivo de texto con información general de un tema sin embargo hay veces en los que la información no está físicamente en un archivo y se tiene que obtener a través de \gls{agentes}.
+	Son aplicaciones que alimentarán al modelo con un conjunto de herramientas tales como motores de búsqueda, bases de datos, páginas web, etc. Una vez provisto con esta información, el modelo es capaz de razonar acerca de las acciones que debe cumplir para obtener el mejor resultado.
+
+	
+	\subsection{Uso de \acrlong{llm} en \textit{Eco City Tours}}
+	En este proyecto, los \acrlong{llm} se han empleado para obtener los \acrfull{pdi} a través de un diálogo interactivo entre la \acrlong{ia} y el usuario, donde este último solicita recomendaciones de lugares enfocados en el turismo sostenible. En la sección de \href{https://github.com/fps1001/TFGII_FPisot/tree/main/project-prototypes/README.md}{prototipos}, además de un prototipo con Langflow, se implementa un cuaderno de Python que evalúa las mejoras en las respuestas aplicando diversas técnicas de prompting~\cite{promptingguide}. Inicialmente, el prototipo presenta una conversación básica con respuestas de baja calidad o incluso alucinadas, que progresivamente mejoran al incluir estructuras de datos predefinidas en las respuestas. Este enfoque permite que la aplicación aproveche el aprendizaje, generando recomendaciones más precisas y acordes al código requerido en la aplicación móvil.
+	
+	En cuanto a los \acrfull{rag}, su mayor utilidad suele encontrarse en la mejora de chatbots empresariales, donde se busca ofrecer una atención al cliente más eficiente y precisa. En el contexto de los prototipos desarrollados para este \acrshort{tfg}, se realizaron pruebas con sistemas \acrshort{rag} que recopilaban información a partir de búsquedas en Internet. Las páginas web resultado de las búsquedas eran después tratadas para, una vez procesada su información,  incluirla en el contexto del prompt, lo que permitía al modelo generar respuestas más completas y actualizadas. Sin embargo, los resultados de estas pruebas revelaron que, aunque el sistema proporciona un contexto enriquecido y relevante, los tiempos de respuesta se incrementan significativamente, lo que podría afectar negativamente la experiencia del usuario. Por esta razón,\textbf{ se decidió no implementar estas herramientas en la versión final de la aplicación}, aunque los prototipos quedan disponibles como experimentos, con el fin de inspirar a otros desarrolladores interesados en explorar esta tecnología.
+
+\section{Agilidad y método SCRUM}
+La gestión ágil de proyectos de desarrollo de software tiene como pilares fundamentales la flexibilidad, la colaboración y la entrega continua de valor al cliente~\cite{agile_alliance}. La agilidad se basa en la idea de ciclos de trabajo cortos e iterativos denominados \textbf{sprints}, donde se produce software funcional al final de cada iteración.
+
+\textbf{SCRUM} es un marco de trabajo ágil que facilita la auto-organización del equipo, promueve la transparencia y mejora la capacidad de adaptación del proyecto.
+
+Este enfoque es particularmente valioso en el desarrollo de \textit{Eco City Tours}, iterando rápidamente sobre incrementos funcionales de la aplicación, validando con pruebas de usuario con prototipos funcionales y ajustando el desarrollo a las necesidades que surgían durante el proceso. El tutor ha jugado los tres roles definidos en SCRUM: usuario para validar los incrementos funcionales, equipo cuando revisa contenido de las tareas y SCRUM master para ayudar ha aplicar la agilidad. El rol principal del estudiante y autor de trabajo es el de equipo. Ambos participantes se han reunido para:
+\begin{itemize}
+	\item \textbf{Planificación de Sprint}: consiste en la creación y asignación de tareas que se realizarán durante el período de tiempo en que consiste el sprint. En este \acrshort{tfg} la duración de los sprints ha sido entre dos y tres semanas. A cada tarea se le asigna unos puntos de historia que reflejan el tiempo planificado para realizar dicha tarea. También se planifican etiquetas e hitos para los que las diferentes tareas ayudan a lograr.
+	\item \textbf{Sprint review y sprint retrospective}: después de cada sprint y con la ayuda del tutor del \acrshort{tfg}, se presenta el incremento funcional y se revisan las tareas realizadas durante el sprint. Además, estas reuniones incluyen una evaluación continua de la calidad del desarrollo y los procesos asociados.
+	\item \textbf{Integración continua con pruebas y compilación}: como parte del enfoque de calidad continua, se integraron prácticas de \acrfull{ci} durante el ciclo de desarrollo. Estas prácticas incluyen la \textbf{automatización de pruebas y la compilación del software} utilizando GitHub Actions. En particular, se ejecutaron flujos de trabajo que realizan análisis automatizados del código con SonarCloud~\cite{sonarcloud}, garantizando la detección temprana de errores y problemas de estilo o rendimiento en el código como se muestra en la figura~\ref{fig:sonarcloud}. Esto asegura que cada incremento funcional presentado en la \textit{sprint review} sea estable y cumpla con los estándares de calidad establecidos.
+	\end{itemize}
+\imagen{sonarcloud}{Resumen de la compilación del proyecto en SonarCloud}{1}
+La combinación de la sprint review con prácticas de integración y calidad continua refuerza el principio ágil de entrega de valor constante y garantiza que el software presentado al finalizar cada sprint sea de calidad, estable y funcional. El uso de la metodología ágil y el marco SCRUM fue esencial para el éxito del desarrollo de \textit{Eco City Tours}. La agilidad permitió una colaboración constante y una entrega continua de valor, mientras que SCRUM proporcionó la estructura necesaria para gestionar eficazmente el trabajo, resolver problemas y optimizar el proceso de desarrollo en cada iteración.

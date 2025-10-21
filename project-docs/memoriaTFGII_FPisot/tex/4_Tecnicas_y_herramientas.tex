@@ -1,0 +1,110 @@
+\capitulo{4}{Técnicas y herramientas}
+
+El siguiente capítulo presenta las técnicas y herramientas usadas a lo largo del desarrollo de la aplicación \textit{Eco City Tours}. Se detallarán los aspectos más destacados de cada una de ellas, justificando el porqué de su utilización sobre otras alternativas si las hubiera. Para mejorar la comprensión de la sección las herramientas se han agrupado en tres subsecciones. La primera relacionadas con el desarrollo con modelos \acrshort{llm}, la segunda con las herramientas utilizadas en el desarrollo de la aplicación móvil, y la tercera con las empleadas para la gestión del proyecto.
+
+
+\section{Desarrollo relacionado con LLM}
+	\subsection{LM Studio}
+	LM Studio~\cite{lmstudio_ai} es una aplicación enfocada en el despliegue de modelos de lenguaje. Su principal objetivo es facilitar la experimentación con \acrlong{llm} ofreciendo un entorno completo y que integra funcionalidades en el procesamiento de lenguaje natural.
+	Estas son algunas de las más destacadas:
+	
+	\begin{itemize}
+		
+		\item \textbf{Búsqueda y despliegue de modelos en local}: a través de un buscador intuitivo, los usuarios pueden seleccionar, descargar y desplegar cualquier modelo disponible en plataformas como Hugging Face, facilitando su uso local.
+		
+		\item \textbf{Servidor local de un el modelo}: LM Studio permite crear un servidor local que gestione peticiones de información. Esto es especialmente útil para automatizar procesos que requieran el procesamiento de lenguaje o la gestión de grandes volúmenes de datos.
+		
+		\item \textbf{Entrenamiento y ajuste de modelo}: LM Studio simplifica el proceso de fine-tuning o ajuste fino, que consiste en optimizar un modelo pre-entrenado mediante conjuntos de datos específicos y tareas concretas para mejorar su rendimiento. Gracias a su interfaz gráfica, esta tarea se vuelve más accesible para los desarrolladores, eliminando gran parte de la complejidad técnica.
+		
+		\item \textbf{Optimización y monitorización}: permite observar el rendimiento de los modelos analizando su consumo de GPU, memoria o CPU así como su tiempo de respuesta, lo que permite realizar al usuario ajustes con el fin de mejorar el rendimiento del sistema.
+	\end{itemize}
+	La experimentación con diferentes modelos para decidir cuál usar en \textit{Eco City Tours} resultó mucho más rápida y eficiente gracias a esta herramienta, en comparación con el uso inicial de un solo modelo a través de Ollama~\cite{ollama}.
+		
+	\subsection{LangFlow}
+	LangFlow es una herramienta de código abierto~\cite{langflow} que proporciona una \acrfull{gui}, permitiendo la interacción con \acrlong{llm} (Modelos de Lenguaje a Gran Escala) sin necesidad de escribir código. Los usuarios pueden configurar componentes y módulos de forma visual, conectándolos entre sí como si se tratara de un diagrama de flujo, facilitando la creación de aplicaciones complejas de procesamiento de lenguaje.
+	
+	La aplicación se puede instalar localmente, donde se ejecuta como un servicio en un puerto específico del localhost, permitiendo interactuar con la interfaz a través de un navegador web, como si fuera una aplicación web estándar.
+	\begin{itemize}
+		
+		\item \textbf{Integración con múltiples LLM y herramientas de terceros}, existe una gran variedad de modelos con los que se puede interactuar con solo configurar sus claves API, pero también herramientas como agentes o tokenizadores, lo que amplía las posibilidades de personalización y experimentación.
+		
+		\item \textbf{Herramienta de exportación e importación}, la plataforma permite exportar el flujo de trabajo generado a un archivo JSON, lo que facilita la portabilidad del proyecto.
+		
+		\item \textbf{Prototipos iniciales}, se puede encontrar en el arranque de la aplicación proyectos por defecto que facilitan el desarrollo. Por ejemplo, si se quiere conseguir un sistema RAG, se puede partir de una plantilla ya creada que permite ahorrar tiempo a la hora de personalizar un prototipo personal.
+	
+	\end{itemize}
+	En resumen, la principal característica que hace a esta herramienta tan potente es que favorece la experimentación y configuración personal de los elementos que componen un prototipo que usa interacciones con modelos \acrshort{llm}. Esto la convierte en una herramienta ideal para desarrolladores que están empezando a explorar el mundo de los \acrshort{llm}, ya que su enfoque visual ofrece una ventaja significativa frente a alternativas más técnicas, como los cuadernos Jupyter. Además, en el futuro próximo se presenta como una herramienta docente donde presentar a los alumnos los \acrlong{llm} llevando su utilización a campos como el tratamiento de la información, machine-learning o automatización de procesos.
+
+\section{Desarrollo aplicación móvil}
+Se utilizó el framework Flutter~\cite{flutter} para desarrollar \textit{Eco City Tours}. El entorno de desarrollo elegido fue Visual Studio Code, que ofrece una amplia gama de extensiones y herramientas que facilitan el proceso de desarrollo.
+	
+	\subsection{Patrón de diseño \acrfull{bloc}}
+	Un aspecto fundamental en una aplicación móvil reactiva es la gestión del estado, cuyo propósito es automatizar la actualización de las vistas cuando los valores de la lógica de control cambian. Flutter ofrece diversos gestores de estado, como \textit{Provider, Cubit, GetX}, entre otros. Sin embargo, BLoC destaca como un paquete \textbf{Flutter Favorite}~\cite{bloc_package}, lo que lo sitúa como una opción preferida debido a su soporte activo, calidad de código, seguridad y frecuencia de actualizaciones.
+	
+	Entre todos los gestores aprendidos durante mi formación, BLoC resultó ser una opción muy robusta. Una vez comprendida su sintaxis, se aprecia su facilidad de uso y la modularidad de sus elementos, que se estructuran en eventos, estados y definiciones de BLoCs.
+	\subsubsection{Ejemplo de implementación en \textit{Eco City Tours}}
+	A continuación, se muestra un ejemplo simplificado de cómo se utiliza el patrón \acrshort{bloc} para gestionar la generación de un tour:
+	\begin{itemize}
+		\item El usuario selecciona sus preferencias y dispara un evento \texttt{loadTourEvent()} desde la interfaz de usuario.
+		\item El \textit{TourBloc} recibe este evento, interactúa con los servicios externos (\textit{Servicio LLM} y \textit{Google Places}) para obtener y enriquecer los puntos de interés, y calcula una ruta optimizada.
+		\item El \textit{TourBloc} emite un nuevo estado (\texttt{TourLoadedState}) con la información del tour generado, que es recibido por el componente \textit{MapBloc}.
+		\item El \textit{MapBloc} utiliza esta información para actualizar el mapa, invocando el método \texttt{updateMap()}.
+	\end{itemize}
+	Como se puede ver la lógica del tour generado y su representación son dos partes diferenciadas aunque MapBloc dependa del contenido del TourBloc, su codificación no se recarga delegando responsabilidades.
+		
+	\subsection{Extensiones de Visual Studio Code más destacadas}
+		Se citan a continuación brevemente algunas de las extensiones que facilitaron el desarrollo de la aplicación aumentando la producción:
+		\begin{itemize}
+		
+		\item \textbf{Pubspec Assist}: las dependencias de librerías incluidas en el archivo pub\_spec.yaml son automáticamente instaladas, ordenadas y gestionadas en definitiva por este asistente que ahorra múltiples comandos en consola mejorando la rápidez a la hora de programar.
+		
+		\item \textbf{Snippets}: de manera análoga los snippets de flutter permiten programar rápidamente estructuras del código repetitiva. 
+		\imagen{mateapp}{Uso del snippet: mateapp}{1}
+		Sirva de ejemplo la figura \ref{fig:mateapp} donde se ve que sin llegar a escribir mateapp si pulsamos la tecla tabulador se generará todo el código asociado a la derecha y nos dejará el cursor en los campos MyApp para así cambiar el campo a continuación mejorando la velocidad de construcción del código.		
+		\end{itemize}
+
+	\subsection{Github Copilot}
+	Github Copilot y Github Copilot Chat~\cite{vscode_copilot} son dos extensiones de Visual Studio Code que se obtienen gratuitamente entre otras ventajas al identificarse como estudiante en GitHub. Dado que este \acrshort{tfg} promueve el uso de \acrfull{ia} y de los \acrshort{llm}, se decidió incorporar GitHub Copilot para mejorar la eficiencia en el desarrollo.
+	Copilot es una herramienta que ofrece sugerencias automáticas mientras se escribe código (ver Fig.~\ref{fig:copilot}), previendo las próximas líneas y ofreciendo opciones que ahorran tiempo al programador.
+	La extensión Copilot Chat permite la interacción directa con la IA, de manera que se pueden hacer preguntas sobre el código sin necesidad de copiarlo en el chat, ya que el código del archivo abierto se incluye automáticamente en el contexto de la comunicación con Copilot.
+	
+	\imagen{copilot}{Ejemplo de \textit{Ghost Text de Copilot}}{0.8}
+	
+	La ventaja principal es el incremento de productividad: como se muestra en la Figura~\ref{fig:copilot}, Copilot es capaz de generar prácticamente una clase entera o un widget al interpretar correctamente las primeras líneas de código, evitando escribir manualmente un fragmento largo de texto.
+	
+	\textbf{Expectativas vs Realidad.}\\
+	Es responsabilidad del programador mantener el control total sobre su código. Aunque en ocasiones Copilot acierta completamente, solucionando problemas de forma eficiente, también puede provocar inconsistencias si se aplican sugerencias sin la supervisión adecuada. En algunos casos, las sugerencias automáticas pueden alterar partes del código que no estaban relacionadas con el problema original, introduciendo nuevos errores.
+	
+	\imagen{copilot_real}{Código real a utilizar en vez de propuesta Copilot}{0.5}
+	Evidentemente es una tecnología en evolución que irá mejorando pero sirva de ejemplo la Figura~\ref{fig:copilot_real} para ilustrar el código real usado de apenas unas líneas frente a la propuesta de Copilot de la Figura~\ref{fig:copilot}.
+	
+	En resumen, por el momento Copilot resulta muy útil en escenarios donde se trabaja con patrones de código comunes o tareas repetitivas, pero es menos efectivo cuando se trata de resolver problemas más específicos. Aunque no representa un cambio en el paradigma de la programación, sí puede convertirse en una herramienta habitual que, con el tiempo, aumente la productividad del desarrollador.
+
+\section{Gestión de proyectos}
+	\subsection{GitHub}
+	GitHub es una plataforma en la nube para el alojamiento y gestión de código fuente, que se basa en el sistema de control de versiones Git. A lo largo de la carrera de Ingeniería Informática, ha sido utilizada en diversas asignaturas, lo que la convierte en una herramienta fundamental para el desarrollo de proyectos. En el contexto de este \acrshort{tfg}, GitHub ha sido esencial para centralizar y gestionar el código generado en varios \acrshort{ide}, permitiendo un control de versiones eficiente, la conservación del trabajo y una colaboración estructurada en la nube. Algunas de sus características principales usadas en el desarrollo de \textit{Eco City Tours} fueron las siguientes: 
+	
+	\begin{itemize}
+		
+		\item \textbf{Control de versiones con Git}: gracias a los commits realizados a lo largo del desarrollo se permite comprobar la evolución de un proyecto así como volver a estados del trabajo gestionados en sus ramas. Otras herramientas como pull-requests permiten solicitar cambios al código facilitando un uso colaborativo durante la gestión del proyecto.
+		
+		\item \textbf{Integración continua y análisis de calidad}: GitHub se integra fácilmente con una amplia variedad de herramientas de desarrollo, como servicios de CI/CD y plataformas de despliegue, lo que permite automatizar tareas y mejorar el flujo de trabajo. En este proyecto, se definieron acciones en \textit{GitHub Actions} que ejecutan pruebas automatizadas y análisis de calidad del código mediante \textit{SonarCloud}. Estas acciones garantizan un estándar elevado de calidad del software, detectando errores, problemas de estilo y optimización como se observa en la Figura~\ref{fig:sonarcloud-issues}. 
+		\imagen{sonarcloud-issues}{Control de calidad de SonarCloud respecto a issues abiertas.}{1}
+		
+		\item \textbf{Documentación y wikis}: GitHub permite mantener documentación clara y estructurada directamente en el repositorio, facilitando la creación de archivos README para proporcionar información detallada sobre el proyecto.
+		
+		\item \textbf{Gestión de tareas y entrega de releases}: GitHub facilita la planificación y el seguimiento del progreso del proyecto mediante el uso de issues y milestones. Estas herramientas permiten gestionar tareas asignándoles prioridades y etiquetas, lo que proporciona una vista clara del flujo de trabajo. GitHub ofrece también una funcionalidad de releases que permite empaquetar y distribuir versiones finales o intermedias del software de forma eficiente, asegurando una entrega organizada y documentada.
+	\end{itemize}
+	
+	\subsection{Zube}
+	Zube~\cite{zube} es una plataforma de gestión de proyectos con un enfoque colaborativo durante el seguimiento del desarrollo del mismo. Las características principales son su integración con Github, los tableros Kanban que facilitan la planificación de los sprints y herramientas gráficas para el análisis del trabajo tanto producido como por realizar.
+	
+	El uso de esta aplicación fue vital a lo largo del proyecto, ya que se utilizó principalmente para el control de sprints y sus tareas en el panel Kanban y la asignación con puntos de historia. La integración con GitHub permitió un flujo de trabajo eficiente, manteniendo el código fuente y la gestión de tareas en perfecta sincronización, lo que favoreció un desarrollo ágil y organizado. 
+	
+	\subsection{TeXstudio}
+	Para la elaboración de la documentación de este \acrshort{tfg}, se ha optado por utilizar TeXstudio una herramienta multiplataforma, un \acrfull{ide} especializado en la edición de textos en LaTeX. Esta herramienta facilita la redacción de trabajos académicos y científicos mediante características como el resaltado de sintaxis, corrección ortográfica y semántica en tiempo real y la funcionalidad de \textbf{compilación automática al editar}, la cual permite previsualizar continuamente el documento mientras se trabaja, lo que mejora la productividad al ofrecer un resultado inmediato sobre los cambios realizados.
+	
+	
+	
+	
+

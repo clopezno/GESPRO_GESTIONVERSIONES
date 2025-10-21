@@ -1,0 +1,210 @@
+<mxfile host="65bd71144e">
+    <diagram id="XXd6pPZVZHxNrgmQ0Vfv" name="Page-1">
+        <mxGraphModel dx="2096" dy="1416" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="8" value="eco_city_tour_repository" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="645.3299999999999" y="131" width="179" height="501" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="8" vertex="1">
+                    <mxGeometry x="84.5" y="206" width="10" height="123" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="ecoCityTour" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="8">
+                    <mxGeometry x="52.67277882367648" y="318.9994188863798" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="TourSelectionScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="51" y="72" width="173" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="10" vertex="1">
+                    <mxGeometry x="81.5" y="99" width="10" height="316" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="10" target="56">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="77" y="188" as="targetPoint"/>
+                        <mxPoint x="306" y="188" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="110" value="state.savedTours" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="109">
+                    <mxGeometry x="-0.455" relative="1" as="geometry">
+                        <mxPoint x="49" y="-12" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="57" style="edgeStyle=none;html=1;" parent="1" source="56" target="10" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="120" y="171"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="58" value="button.onPressed()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="57" vertex="1" connectable="0">
+                    <mxGeometry x="0.0547" y="1" relative="1" as="geometry">
+                        <mxPoint x="-26" y="-9" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="56" value="Usuario" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=bottom;spacingTop=36;outlineConnect=0;labelPosition=center;verticalLabelPosition=top;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="-26" y="60" width="23" height="574" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="A02 - CloudFirestore" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=bottom;spacingTop=36;outlineConnect=0;labelPosition=center;verticalLabelPosition=top;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1134.33" y="133" width="20" height="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="82" vertex="1">
+                    <mxGeometry x="5" y="244.5" width="10" height="39.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="firestore_dataset" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="879.3299999999999" y="131" width="142" height="501" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="90" vertex="1">
+                    <mxGeometry x="66" y="232" width="10" height="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="ecoCityTour" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="90">
+                    <mxGeometry x="35.67277882367648" y="292.9994188863798" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" style="edgeStyle=none;html=1;entryX=0.35;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=11;" parent="1" source="115" target="70" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="548.3299999999999" y="275.9999999999998" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="93" value="LoadTour(DocumentId)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" parent="92" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6757" y="-1" relative="1" as="geometry">
+                        <mxPoint x="37" y="-11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="94" style="edgeStyle=none;html=1;entryX=0.529;entryY=-0.003;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=11;" parent="1" source="70" target="91" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="loadTour(DocumentId)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" parent="94" vertex="1" connectable="0">
+                    <mxGeometry x="-0.7675" y="-1" relative="1" as="geometry">
+                        <mxPoint x="39" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="97" style="edgeStyle=none;html=1;entryX=0.165;entryY=-0.001;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=11;" parent="1" source="91" target="96" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="firestore.collection('tours').&lt;br&gt;doc(documentId).get()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" parent="97" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6635" y="-1" relative="1" as="geometry">
+                        <mxPoint x="45" y="-19" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="99" style="edgeStyle=none;html=1;fontSize=11;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142.33" y="417" as="sourcePoint"/>
+                        <mxPoint x="949.6535294117643" y="416.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="127" value="ecoCityTour" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="99">
+                    <mxGeometry x="-0.4795" y="-2" relative="1" as="geometry">
+                        <mxPoint x="16" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="101" style="edgeStyle=none;html=1;dashed=1;fontSize=11;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="945.3299999999999" y="432" as="sourcePoint"/>
+                        <mxPoint x="734.1535294117648" y="432" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="103" style="edgeStyle=none;html=1;dashed=1;fontSize=11;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="729.8299999999999" y="458" as="sourcePoint"/>
+                        <mxPoint x="542.9966666666664" y="458" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="107" value="SaveTourScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="271" y="70" width="173" height="562" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="107">
+                    <mxGeometry x="81.5" y="99" width="10" height="316" as="geometry"/>
+                </mxCell>
+                <mxCell id="117" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="107">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="87" y="165" as="targetPoint"/>
+                        <mxPoint x="271" y="165" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="118" value="List&amp;lt;EcoCityTour&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="117">
+                    <mxGeometry x="-0.455" relative="1" as="geometry">
+                        <mxPoint x="-4" y="-12" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="111" style="edgeStyle=none;html=1;entryX=0.07;entryY=0.068;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="11" target="108">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" value="context.pushNamed('saved-tours')" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="111">
+                    <mxGeometry x="-0.7769" y="-3" relative="1" as="geometry">
+                        <mxPoint x="64" y="-13" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="113" style="edgeStyle=none;html=1;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="93.75" y="292"/>
+                        </Array>
+                        <mxPoint x="-16.002380952380737" y="291.9999999999999" as="sourcePoint"/>
+                        <mxPoint x="355.95" y="291.9999999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="114" value="tour.onTap()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="113">
+                    <mxGeometry x="0.0547" y="1" relative="1" as="geometry">
+                        <mxPoint x="-160" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="115" value="TourBloc" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="475" y="71.5" width="135" height="556.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="115">
+                    <mxGeometry x="62.5" y="120.5" width="10" height="379.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" style="edgeStyle=none;html=1;entryX=0.683;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="108" target="116">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="getSavedTours()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="119">
+                    <mxGeometry x="-0.7179" relative="1" as="geometry">
+                        <mxPoint x="19" y="-11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="121" style="edgeStyle=none;html=1;entryX=0.017;entryY=0.405;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="108" target="116">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" value="onLoadFromSavedEvent(DocumentId)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="121">
+                    <mxGeometry x="-0.7072" y="-1" relative="1" as="geometry">
+                        <mxPoint x="61" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="130" value="MapBloc" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="1227" y="131" width="135" height="488" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="130">
+                    <mxGeometry x="62.5" y="371" width="10" height="65.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="MapScreen" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="1419" y="131" width="135" height="488" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="132">
+                    <mxGeometry x="62.5" y="386" width="10" height="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="138" style="edgeStyle=none;html=1;" edge="1" parent="132">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-122" y="383.99800000000005" as="sourcePoint"/>
+                        <mxPoint x="67" y="384" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="139" value="context.pushNamed('map-scren'),&lt;br&gt;onDrawEcoCityTour(ecoCityTour)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="138">
+                    <mxGeometry x="-0.7769" y="-3" relative="1" as="geometry">
+                        <mxPoint x="67" y="-20" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="134" style="edgeStyle=none;html=1;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="541.4615384615386" y="500.5" as="sourcePoint"/>
+                        <mxPoint x="1293.9999999999995" y="500.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="135" value="onLoadTourEvent(state.ecoCityTour)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" vertex="1" connectable="0" parent="134">
+                    <mxGeometry x="-0.6757" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-25" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

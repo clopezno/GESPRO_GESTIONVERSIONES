@@ -1,0 +1,5 @@
+project-prototypes/.env
+local.properties
+project-app\project_app\android\local.properties
+project-app\project_app\android\app\google-services.json
+.vscode

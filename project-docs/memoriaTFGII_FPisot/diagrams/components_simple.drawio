@@ -1,0 +1,95 @@
+<mxfile host="65bd71144e">
+    <diagram id="YXdEXggQSP4YI09Zn47U" name="Page-1">
+        <mxGraphModel dx="910" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="39" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:10px;text-align:left;&quot;&gt;&lt;b&gt;Servicios Externos&lt;/b&gt;&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;align=left;spacingLeft=5;verticalAlign=top;spacingTop=-3;labelX=135;html=1;overflow=fill;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="640" width="620" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="19" target="39">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:10px;text-align:left;&quot;&gt;&lt;b&gt;Lógica de negocio&lt;/b&gt;&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;align=left;spacingLeft=5;verticalAlign=top;spacingTop=-3;labelX=135;html=1;overflow=fill;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="420" width="620" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="17" target="19">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:10px;text-align:left;&quot;&gt;&lt;b&gt;Interfaz de usuario&lt;/b&gt;&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;align=left;spacingLeft=5;verticalAlign=top;spacingTop=-3;labelX=135;html=1;overflow=fill;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="230" width="620" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="3" target="17" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Usuario" style="shape=umlActor;verticalLabelPosition=top;verticalAlign=bottom;html=1;outlineConnect=0;labelPosition=center;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="415" y="60" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="TourSummary" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="270" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="4" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="MapScreen" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="270" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="6" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="TourSelectionScreen" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="270" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="8" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="Generador de Rutas&lt;br&gt;TourBloc" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="450" width="172" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="20" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="Gestor de mapa&lt;br&gt;MapBloc" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="450" width="172" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="23" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="Google Places" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="680" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="40" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" value="Servicio LLM" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="680" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="42" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="44" value="Optimizador de Rutas" style="html=1;dropTarget=0;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="680" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="44" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

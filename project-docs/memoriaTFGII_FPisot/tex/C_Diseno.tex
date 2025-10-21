@@ -1,0 +1,251 @@
+\apendice{Especificación de diseño}
+
+\section{Introducción}
+En este anexo, se detallan las especificaciones de diseño del proyecto, enfocadas en los aspectos fundamentales para el desarrollo de la aplicación. Se describen cómo se organizan los datos que lo componen, el diseño arquitectónico, y el diseño procedimental con la interacción entre los objetos diseñados. Estas especificaciones son clave para asegurar la comprensión y la implementación de cada uno de los elementos que componen \textit{Eco City Tours}.
+\section{Diseño de datos}
+
+En esta sección se presenta el diseño de datos del sistema a un alto nivel de abstracción. Para explicar dicho diseño se usarán varios diagramas donde se muestran las dos principales entidades del sistema y las relaciones entre ellas, centrándose en su estructura y atributos relevantes. 
+
+\imagen{diagrama-entidades}{Diagrama de entidades. Eco City Tour y \acrlong{pdi}}
+\imagen{diagrama-relacional}{Diagrama relacional.}
+A continuación, se describen las entidades, sus atributos y las relaciones que existen entre ellas.
+\subsection{Entidades del Sistema}
+\begin{itemize}
+	\item \textbf{EcoCityTour}: Representa una ruta turística generada por la aplicación. Incluye la información general sobre el recorrido.
+	\begin{itemize}
+		\item \textbf{city}: Ciudad, pueblo o lugar en el que se realiza la ruta.
+		\item \textbf{mode}: Medio de transporte elegido por el usuario (a pie o bicicleta).
+		\item \textbf{duration}: Duración estimada del recorrido en metros. Rango de valores permitidos (0-999 km.)
+		\item \textbf{distance}: Distancia total de la ruta en segundos. Rango de valores permitidos (0-24 horas).
+		\item \textbf{userPreferences}: Preferencias del usuario: Naturaleza, Museos, Gastronomía, Deportes, Compras e Historia.
+	\end{itemize}
+	
+	\item {\textbf{PointOfInterest}}: Representa un \acrlong{pdi} dentro de la ruta.
+	\begin{itemize}
+		\item \textbf{name}: Nombre del lugar.
+		\item \textbf{gps}: Coordenadas GPS del sitio (latitud y longitud medida en grados). Rango válido: -90º a 90º para latitud y -180º-180º para longitud.
+		\item \textbf{description}: Breve descripción del lugar.
+		\item \textbf{url}: Enlace a información adicional sobre el lugar.
+		\item \textbf{imageUrl}: URL de la imagen representativa del lugar.
+		\item \textbf{rating}: Calificación promedio del punto de interés. Valoraciones numéricas de 0 a 5 estrellas.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Relaciones entre Entidades}
+\begin{itemize}
+	\item \textbf{EcoCityTour -- PointOfInterest}: Una relación  donde:
+	\begin{itemize}
+		\item Un \textbf{EcoCityTour} posee \textbf{0..n} puntos de interés (\textbf{PointOfInterest}).
+		\item Cada \textbf{PointOfInterest} pertenece a exactamente un \textbf{EcoCityTour}.
+	\end{itemize}
+\end{itemize}
+
+\section{Diseño arquitectónico}
+
+El diseño arquitectónico de la aplicación \textit{Eco City Tours} se basa en una estructura modular, organizada para garantizar una clara separación de responsabilidades, facilitando el desarrollo, mantenimiento y escalabilidad del sistema. 
+
+La arquitectura a este nivel de abstracción se muestra en la Figura~\ref{fig:paquetes-dependencias} y está dividida en cinco capas funcionales principales: \textbf{Modelo}, \textbf{Interfaz de Usuario}, \textbf{Lógica de Negocio}, \textbf{Servicios Externos}, y \textbf{Persistencia}, cada una de las cuales agrupa componentes con responsabilidades específicas.
+
+
+\imagen{paquetes-dependencias}{Diagrama arquitectónico de paquetes y dependencias}
+
+Las responsabilidades de cada capa son las siguientes:
+
+\begin{itemize}
+	\item \textbf{Modelo}: Define las estructuras de datos principales utilizadas en el sistema, como los puntos de interés (\textit{PointOfInterest}) y los tours (\textit{EcoCityTour}).
+	\item \textbf{Interfaz de Usuario}: Contiene los componentes que permiten la interacción directa con el usuario, es decir, las pantallas que permiten configurar un tour y visualizarlo.
+	\item \textbf{Lógica de Negocio}: Gestiona el flujo de información entre la interfaz de usuario y los servicios externos, utilizando los gestores de estado basados en BLoC.
+	\item \textbf{Servicios Externos}: Incluye los servicios que interactúan con APIs externas, como Google Places, Gemini, y el servicio que calcula la ruta a seguir por el usuario.
+	\item \textbf{Persistencia}: Maneja el almacenamiento y recuperación de datos, integrándose con Firestore para guardar información relevante.
+\end{itemize}
+
+Desde una perspectiva más específica, el diagrama de clases (Figura~\ref{fig:clases}) ilustra la relación entre los paquetes principales y sus clases internas. Este nivel proporciona una visión más precisa de las interacciones entre los paquetes antes descritos.
+
+\imagen{clases}{Diagrama arquitectónico detallado de paquetes y clases de \textit{Eco City Tours}}
+
+Este diagrama ilustra cómo se relaciona el modelo de datos con la lógica de negocio (usando \acrshort{bloc}) y el servicio de persistencia de los datos del modelo. Además, se describe cómo la lógica de negocios se apoya en servicios externos relacionados con la interacción con modelos de \acrshort{ia} y con interacción en mapas geográficos.
+
+Esta arquitectura propuesta basada en patrones de orientación a objetos bien conocidos~\cite{gamma2002patrones} garantiza un diseño cohesivo, con bajo acoplamiento y alta cohesión, la extensibilidad del sistema coincidiendo también con cada carpeta dentro de la estructura del proyecto Flutter lo que garantiza también una fácil mantenibilidad.
+
+A continuación, se describen los paquetes y componentes principales representados en el diagrama de clases:
+
+\begin{itemize}
+	\item \textbf{Services}:
+	\begin{itemize}
+		\item \textbf{GeminiService}: Servicio encargado de interactuar con el modelo LLM \textit{Gemini} para obtener información sobre \acrlong{pdi} y generar recomendaciones personalizadas.
+		\item \textbf{PlacesService}: Proporciona datos relacionados con lugares de interés mediante la integración con la API de \textit{Google Places}.
+		\item \textbf{OptimizationService}: Se encarga de calcular rutas optimizadas entre puntos de interés, teniendo en cuenta las propiedades de configuración de la ruta.
+	\end{itemize}
+	
+\item \textbf{google\_maps\_flutter}:
+\begin{itemize}
+	\item Clase del paquete oficial de Flutter para administrar la interacción con los mapas de Google en la interfaz de usuario. Su función principal es permitir la visualización y gestión de las rutas generadas.
+\end{itemize}
+
+	
+	\item \textbf{models}: existen dos clases principales en las que se basa el diseño de la aplicación.
+	\begin{itemize}
+		\item \textbf{\acrlong{pdi}}: Clase que modela un \acrshort{pdi}, almacenando información relevante como nombre, ubicación y descripción. 
+		\item \textbf{EcoCityTour}: Clase que representa un tour turístico completo, que incluye una lista del modelo anterior y datos como duración, distancia y nombre del lugar donde se ha generado la ruta turística.
+	\end{itemize}
+	
+	\item \textbf{blocs}: este paquete gestionará la lógica del gestor de estados de la aplicación.
+	\begin{itemize}
+		\item \textbf{TourBloc}: Responsable de la gestión del estado relacionado con los tours, incluyendo la generación y modificación de rutas.
+		\item \textbf{MapBloc}: Administra el estado relacionado con la visualización en el mapa, como el trazado de rutas.
+		\item \textbf{LocationBloc}: Obtiene la información de la posición del usuario actual y la guarda si el stream de datos está activo.
+		\item \textbf{GpsBloc}: Gestiona si el dispositivo tiene el GPS activado y la aplicación tiene permisos para el uso de dicho sensor.
+	\end{itemize}
+	
+	\item \textbf{persistence\_bd}:
+	\begin{itemize}
+		\item \textbf{Repositories: EcoCityTourRepository}: Implementa la lógica necesaria para, guardar y cargar información de un \textit{EcoCityTour}.
+		\item \textbf{Datasets: FirestoreDataset}: Clase que gestiona la persistencia de datos en la base de datos en este caso concreto de Firestore.
+	\end{itemize}
+\end{itemize}
+
+Con esta organización, el sistema obtenido es flexible pero resulta dadas las pruebas realizadas muy robusto. La aplicación de patrones de diseño dan soporte a la extensibilidad en su futuro mantenimiento. Por ejemplo se pueden incluir mediante extensiones nuevos gestores de estado y nuevas bases de datos de almacenamiento.
+
+\subsection{Patrón de diseño \acrfull{bloc}}
+El patrón de diseño \acrshort{bloc}~\cite{flutter_bloc} es fundamental en la arquitectura de la aplicación \textit{Eco City Tours}. Este patrón se caracteriza por tener las siguientes propiedades:
+\begin{itemize}
+	
+	\item \textbf{Gestión clara del estado}: BLoC proporciona una manera estructurada de gestionar los diferentes estados de la aplicación. Cada cambio de estado es manejado a través de eventos, lo que permite una clara separación entre la lógica de negocio y la presentación visual.
+	
+	\item \textbf{Escalabilidad}: el uso del diseño reactivo orientado a eventos, característico del patrón BLoC, facilita la gestión del estado de la aplicación y permite que esta crezca en funcionalidad sin comprometer su rendimiento. Cada nueva funcionalidad puede ser controlada por un BLoC independiente, lo que asegura que el sistema se incremente de manera estructurada.
+	
+	\item \textbf{Mantenibilidad}: gracias a las extensiones de Visual Studio Code, es posible generar nuevos BLoCs fácilmente. Esto simplifica el desarrollo de nuevas funcionalidades. La clara separación de responsabilidades entre los BLoCs individuales contribuye a un código modular y fácilmente mantenible.
+	
+	\item \textbf{Reutilización de lógica}: Uno de los beneficios clave de BLoC es que la lógica de negocio se puede reutilizar fácilmente en diferentes partes de la aplicación. Esto facilita la implementación de componentes que comparten comportamientos similares sin duplicar código. Para lograrlo, se utiliza el \textit{BLoCProvider}, un widget que comparte el BLoC y permite que los widgets hijos accedan a su lógica de estado. De esta manera, cualquier widget dentro del contexto del BLoCProvider puede interactuar con el BLoC correspondiente.
+	
+\end{itemize}
+
+En el contexto de Flutter, el patrón \acrlong{bloc} utiliza un enfoque basado en flujos o \textit{streams} y eventos (ver Fig.~\ref{fig:bloc-diagram}), permitiendo que los estados y eventos fluyan entre los componentes sin acoplar directamente la lógica de negocio con la interfaz gráfica. 
+
+La aplicación \textit{Eco City Tours} implementa este patrón de diseño a través de los componentes principales, cada uno con una funcionalidad clara y única.
+\begin{itemize}
+	\item \textbf{\textit{GpsBloc}}: Gestiona tanto los permisos de uso de GPS como su activación actual en el dispositivo donde esté funcionando la aplicación.
+	\item \textbf{\textit{LocationBloc}}: Gestiona la localización del usuario a través de un stream que guarda la posición GPS por la que va circulando.
+	\item \textbf{\textit{TourBloc}}: Gestiona toda la lógica relacionada con los tours, desde la generación y modificación de rutas hasta la interacción con los servicios externos como \textit{Servicio LLM} y \textit{Google Places}.
+	\item \textbf{\textit{MapBloc}}: Gestiona el estado y las interacciones del mapa, como la visualización de rutas generadas, la actualización de puntos de interés.
+\end{itemize}
+
+Un aspecto importante en la implementación del patrón \acrshort{bloc} en \textit{Eco City Tours} es el uso de la clase \texttt{Equatable}, que permite simplificar la comparación de estados y eventos. En Flutter, cada vez que un estado cambia, se debe notificar a la interfaz de usuario para que se actualice. Esta interacción se alinea con el patrón de diseño Observador, definido en~\cite{gamma2002patrones}, establece una relación entre un sujeto (en este caso, el BLoC) y múltiples observadores (diferentes componentes de la interfaz de usuario), asegurando que estos últimos reaccionen a los cambios en el estado del primero. La clase \texttt{Equatable} facilita este proceso al definir de manera eficiente si dos instancias de estado o evento son equivalentes, evitando notificaciones redundantes y mejorando el rendimiento del sistema.
+
+En el caso de \textit{Eco City Tours}, todos los \acrshort{bloc} usados extienden de \texttt{Equatable}, asegurando que la lógica de comparación sea precisa y que la interfaz de usuario solo se actualice cuando sea necesario. 
+
+\subsubsection{Principios clave del patrón \acrshort{bloc}}
+	El patrón \acrfull{bloc} sigue los siguientes principios:
+	\begin{itemize}
+		\item \textbf{Eventos y estados}: La interacción entre la interfaz de usuario y la lógica de negocio se realiza mediante el envío de eventos (\texttt{Event}) y la emisión de estados (\texttt{State}). Los eventos representan acciones realizadas por el usuario, mientras que los estados reflejan el resultado de procesar esos eventos.
+		\item \textbf{Flujos (\textit{Streams})}: El patrón utiliza \textit{streams} de datos reactivos para manejar la comunicación entre la interfaz de usuario y la lógica de negocio.
+		\item \textbf{Inmutabilidad}: Tanto los eventos como los estados son inmutables, lo que asegura un comportamiento asíncrono predecible y simplifica el manejo del flujo de datos.
+	\end{itemize}
+	
+	\imagen{bloc-diagram}{Diagrama de interacción asíncrona del patrón \acrshort{bloc} en la aplicación}
+\subsubsection{Ejemplo de uso de \acrshort{bloc} en \textit{Eco City Tours}}
+El \acrshort{bloc} ubicado en \href{https://github.com/fps1001/TFGII_FPisot/tree/main/project-app/project_app/lib/blocs/gps/gps_bloc.dart}{gps\_bloc.dart} gestiona el permiso de uso del GPS de la aplicación y la activación del sensor GPS del móvil. 
+Se aplica el patrón de diseño Observador, estudiado en la asignatura \textit{Diseño y Mantenimiento del Software}, que es uno de los patrones fundamentales descritos por Gamma et al.~\cite{gamma2002}.
+El \acrshort{bloc} actúa como el Sujeto del patrón Observador, gestionando el estado de si el GPS está activado y si los permisos de ubicación han sido concedidos.
+
+\begin{figure}[htbp] % Usamos figure para el flotador
+	\centering
+	\begin{lstlisting}[caption={Definición de variables de control en el BLoC}]
+		// Indicates whether GPS is enabled
+		final bool isGpsEnabled;
+		
+		// Indicates whether the app has permission to access GPS
+		final bool isGpsPermissionGranted;
+		
+		// Getter for the correct state of permissions and active GPS.
+		bool get isAllReady =>
+		isGpsEnabled &&
+		isGpsPermissionGranted;
+	\end{lstlisting}
+\end{figure}
+Los widgets que dependen de esta información, como los mapas o botones de la interfaz de usuario, actúan como Observadores. Cada vez que el estado del \acrshort{bloc} cambia, estos widgets son notificados y se actualizan automáticamente, permitiendo que la interfaz reaccione en tiempo real a los cambios en el estado del GPS o los permisos.
+Cada vez que el estado del GPS o de los permisos cambia, se dispara un evento \textit{OnGpsAndPermissionEvent}, que actualiza el estado y notifica a los widgets correspondientes. Esto permite que la interfaz de usuario reaccione dinámicamente y muestre la información correcta según el estado actual.
+
+\begin{lstlisting}[caption={Carga en función del estado}]
+	class LoadingScreen extends StatelessWidget {
+		const LoadingScreen({super.key});
+		
+		@override
+		Widget build(BuildContext context) {
+			return Scaffold(
+			body: BlocBuilder<GpsBloc, GpsState>(
+			builder: (context, state) {
+				return state.isAllReady 
+				// If GPS and permissions are ready, show the map; otherwise, show the GPS access screen
+				? const MapScreen()
+				: const GpsAccessScreen();
+			},
+			),
+			);
+		}
+	}
+\end{lstlisting}	
+Este ejemplo muestra la comunicación entre lógica de control e interfaz gráfica usando el patrón Observador con BLoC.
+
+
+\section{Diseño procedimental}
+En esta sección se explicará el flujo de trabajo relacionado con las tareas más importantes de la aplicación, asociando cada diseño procedimental a sus respectivos \textbf{Casos de Uso (CU)} descritos en la subsección~\ref{subsec:casos-uso}.
+
+\subsection{Calcular de \textit{EcoCityTour} desde pantalla de selección de preferencias (CU01.1)}
+La generación de un nuevo tour turístico una vez que el usuario ha definido sus preferencias es el proceso fundamental que se muestra en la Figura~\ref{fig:secuence}, correspondiente al \textbf{CU01.1 Calcular Eco City Tour}.
+
+El proceso comienza con el evento \texttt{loadTourEvent()}, disparado por el usuario desde la pantalla de selección (\textit{TourSelectionScreen}). Este evento desencadena la siguiente secuencia de llamadas asíncronas entre objetos:
+\begin{enumerate}
+	\item El \textit{TourBloc} inicia la generación del tour solicitando a \textit{ServicioLLM} una lista inicial de \acrlong{pdi} basados en los parámetros de configuración de la ruta.
+	\item \textit{ServicioLLM} devuelve un conjunto de \acrlong{pdi}, que luego se enriquecen con información adicional obtenida a través de \textit{Google Places} mediante el método \texttt{searchPlacePOI}.
+	\item La información enriquecida de los \acrlong{pdi} es enviada a \textit{OptimizationService}, que calcula una ruta optimizada utilizando criterios de sostenibilidad y los parámetros de configuración de la ruta. Esto se realiza a través del método \texttt{optimizedRoute()}.
+	\item La ruta optimizada es devuelta como \texttt{OptimizedRoute} y se envía al \textit{MapBloc}, que se encarga de gestionar la actualización del mapa en la interfaz de usuario.
+	\item Finalmente, el \textit{MapBloc} utiliza la ruta optimizada para invocar el método \texttt{updateMap()}, mostrando el tour generado en \textit{MapScreen} y permitiendo al usuario interactuar con los puntos de interés.
+\end{enumerate}
+\imagen{secuence}{Diagrama de secuencia - Generación de Eco City Tour}
+
+\subsection{Añadir un \acrfull{pdi} (CU02.3)}
+El flujo para añadir un nuevo \acrshort{pdi} corresponde al \textbf{CU02.3 Añadir PDI}. El proceso se inicia cuando el usuario selecciona la opción de añadir un \acrshort{pdi} desde la interfaz de usuario \textit{MapScreen}. 
+
+Este evento desencadena una serie de interacciones entre los componentes principales:
+\begin{itemize}
+	\item El \textit{MapBloc} gestiona el estado del mapa.
+	\item El \textit{TourBloc} actualiza la lista de \acrshort{pdi} en el tour actual.
+\end{itemize}
+Finalmente, el sistema actualiza la vista del mapa con el \acrshort{pdi} añadido y guarda los cambios en el repositorio correspondiente.
+
+La Figura~\ref{fig:add-poi-secuence} muestra el diagrama de secuencia de esta funcionalidad.
+
+\imagen{add-poi-secuence}{Diagrama de secuencia - Añadir un \acrshort{pdi}}
+
+\subsection{Eliminar un \acrshort{pdi} (CU02.2)}
+El flujo para eliminar un \acrshort{pdi}, relacionado con el \textbf{CU02.2 Eliminar PDI}, permite al usuario ajustar su ruta eliminando aquellos \acrshort{pdi} que no sean relevantes.
+
+El usuario inicia este flujo seleccionando el \acrshort{pdi} a eliminar desde:
+\begin{itemize}
+	\item \textit{MapScreen} a través del \textit{custom\_bottom\_sheet}.
+	\item La pantalla de resumen (\textit{poi\_list\_item}).
+\end{itemize}
+Ambos eventos lanzan una actualización en el \textit{TourBloc}, que solicita al \textit{Google Directions Service} recalcular la ruta optimizada. Finalmente, el \textit{MapBloc} actualiza la vista del mapa.
+
+La Figura~\ref{fig:remove-poi-secuence} muestra el diagrama de secuencia correspondiente.
+
+\imagen{remove-poi-secuence}{Diagrama de secuencia - Eliminar un \acrshort{pdi}}
+
+\subsection{Guardar un Eco City Tour (CU04)}
+La funcionalidad de guardar un Eco City Tour, asociada al \textbf{CU04 Guardar Eco City Tour}, asegura que los usuarios puedan acceder a sus rutas en el futuro.
+
+El flujo comienza cuando el usuario selecciona la opción de guardar desde la interfaz \textit{SummaryScreen}. Este evento activa el \textit{TourBloc}, que envía los datos al repositorio, donde se almacenan a través del \textit{FirestoreDataset}. Una vez completado el guardado, se notifica al usuario mediante un \textit{Snackbar}.
+
+La Figura~\ref{fig:save-tour-secuence} muestra el diagrama de secuencia correspondiente.
+
+\imagen{save-tour-secuence}{Diagrama de secuencia - Guardar un Eco City Tour}
+
+\subsection{Cargar un Eco City Tour (CU05)}
+La funcionalidad de cargar un tour previamente guardado está relacionada con el \textbf{CU05 Cargar Eco City Tour}.
+
+El flujo inicia cuando el usuario selecciona un tour desde la lista de tours guardados en la interfaz \textit{TourSelectionScreen}. Este evento activa el \textit{TourBloc}, que recupera los datos del tour desde el repositorio (\textit{FirestoreDataset}). Una vez recuperada la información, el \textit{MapBloc} actualiza la vista del mapa para mostrar el tour cargado.
+
+La Figura~\ref{fig:load-tour-secuence} describe el diagrama de secuencia para este proceso.
+
+\imagen{load-tour-secuence}{Diagrama de secuencia - Cargar un Eco City Tour}

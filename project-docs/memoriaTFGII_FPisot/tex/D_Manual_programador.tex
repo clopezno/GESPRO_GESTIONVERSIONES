@@ -1,0 +1,250 @@
+\apendice{Documentación técnica de programación}
+
+\section{Introducción}
+Este anexo proporciona una guía técnica detallada para desarrolladores que deseen trabajar en el proyecto \textbf{Eco City Tours}. Aquí se describe cómo configurar desde el entorno de desarrollo, hasta compilar y ejecutar el proyecto, así como las pruebas realizadas y la configuración de servicios externos necesarios para el correcto funcionamiento de la aplicación. 
+
+\section{Estructura de directorios}
+Se ha intentado seguir las buenas prácticas de programación adquiridas en mi formación a la hora de organizar los directorios de la siguiente manera:
+\begin{itemize}
+	
+	\item \textbf{/}: fichero de la licencia, .gitignore y el documento \textit{Readme} con información del proyecto.
+	
+	\item \textbf{/project-docs/}: documentación del proyecto usando la plantilla \LaTeX  proporcionada.
+	
+	\item \textbf{/project-prototype/}: dos prototipos de uso de modelos LLM con ejemplos de prompting y técnicas RAG, tanto en un cuaderno Python como en LangFlow así como las conclusiones tras su experimentación.
+	
+	\item \textbf{/project-app/}: se trata del proyecto Flutter creado a raíz del asistente de Visual Studio y que fue construido de manera incremental desde una aplicación vacía. Se divide en las siguientes subcarpetas:
+	\begin{itemize}
+		\item \textbf{/android }: directorio generado automáticamente por Flutter para configurar y compilar la aplicación en la plataforma \textit{Android}.
+		\item \textbf{/test}: contiene las pruebas unitarias y de integración que verifican el correcto funcionamiento de los componentes, servicios y lógica del negocio.
+		\item \textbf{/assets}: incluye recursos estáticos como imágenes, fuentes o archivos de configuración de idioma que utiliza la aplicación.
+		\item \textbf{/lib}: contiene el código fuente principal de la aplicación, incluyendo los widgets de Flutter y la lógica del negocio. Dentro de esta carpeta destacan las siguientes subcarpetas:
+		\begin{itemize}
+			\item \textbf{/screens}: incluye las distintas pantallas que componen la interfaz de usuario de la aplicación.
+			\item \textbf{/widgets}: contiene componentes reutilizables que forman partes más pequeñas y específicas de la interfaz de usuario, como botones personalizados.
+			\item \textbf{/models}: define las clases fundamentales de datos utilizadas en la aplicación, como `\textit{EcoCityTour}` y `\textit{PointOfInterest}`.
+			\item \textbf{/services}: alberga los servicios responsables de interactuar con las APIs externas, como \textit{Google Maps}, \textit{Google Places} o el modelo \acrshort{llm} utilizado \textit{Gemini pro-1.5}.
+			\item \textbf{/blocs}: organiza la lógica del negocio bajo el patrón \acrfull{bloc}, permitiendo manejar el estado de forma eficiente.
+		\end{itemize}		
+	\end{itemize}
+\end{itemize}
+
+\section{Manual del programador}
+
+El objetivo de este manual es servir como referencia para cualquier programador que trabaje en este proyecto. Aquí se detallan los pasos necesarios para configurar el entorno de desarrollo, obtener el código fuente desde el repositorio, compilarlo, ejecutarlo y realizar pruebas. Los pasos son los siguientes:
+
+\subsection{Entorno de desarrollo}
+
+Para trabajar en el desarrollo de \textbf{Eco City Tours}, se recomienda configurar el entorno de desarrollo con las siguientes herramientas:
+
+\begin{itemize}
+	\item \textbf{Visual Studio Code:} Editor de código recomendado por su integración con Flutter y extensiones útiles como \texttt{Dart} y \texttt{Flutter}.
+	\item \textbf{Android Studio:} Utilizado principalmente para configurar emuladores de dispositivos móviles.
+	\item \textbf{Flutter SDK:} Framework utilizado para el desarrollo de aplicaciones multiplataforma. 
+	\item \textbf{Copilot:} Extensión para \textit{Visual Studio Code} que utiliza inteligencia artificial para sugerir código y acelerar el desarrollo.
+\end{itemize}
+
+\subsubsection{Pasos para configurar el entorno}
+
+\begin{enumerate}
+	\item Descarga e instala \textbf{Visual Studio Code} desde \url{https://code.visualstudio.com/}.
+	\item Instala las extensiones necesarias para Flutter y Dart:
+	\begin{itemize}
+		\item Abre la pestaña de extensiones (\texttt{Ctrl+Shift+X}) en Visual Studio Code.
+		\item Busca e instala las extensiones \texttt{Flutter} y \texttt{Dart}.
+	\end{itemize}
+	\item Descarga e instala \textbf{Android Studio} desde \url{https://developer.android.com/studio}.
+	\item Configura los emuladores Android en Android Studio:
+	\begin{itemize}
+		\item Abre el \texttt{AVD Manager}.
+		\item Crea un nuevo emulador con las especificaciones necesarias (por ejemplo, Pixel 5 con Android 11 o superior).
+	\end{itemize}
+	\item Instala el \textbf{Flutter SDK}:
+	\begin{itemize}
+		\item Descarga el SDK desde su web \cite{flutter_install}
+		\item Agrega el binario de Flutter al \texttt{PATH} del sistema:
+		\begin{verbatim}
+			export PATH="$PATH:/ruta/del/flutter/bin"
+		\end{verbatim}
+		\item Verifica la instalación ejecutando:
+		\begin{verbatim}
+			flutter doctor
+		\end{verbatim}
+		Este comando será muy útil para indicar si falta alguna librería del sistema operativo o indicará si hay problemas pendientes en la configuración.
+	\end{itemize}
+	\item Instala \textbf{Copilot}:
+	\begin{itemize}
+		\item Desde la pestaña de extensiones en Visual Studio Code, busca e instala \texttt{GitHub Copilot}.
+		\item Inicia sesión con tu cuenta de GitHub para activar la extensión.
+	\end{itemize}
+\end{enumerate}
+El uso de Copilot es gratuito para estudiantes que puedan demostrar su vinculación con una cuenta educativa asociada a GitHub. Durante el proceso de verificación, se solicita capturar dos fotografías a través de una webcam: una que muestre un documento acreditativo, como un carné de estudiante, y otra que incluya una matrícula vigente emitida por la institución educativa correspondiente. Aunque el procedimiento puede parecer sencillo, también es necesario justificar la cercanía geográfica al centro educativo o explicar las razones por las cuales este requisito no se cumple. En el caso de programas de enseñanza online, es posible indicar que, debido a la naturaleza del programa, no es obligatorio residir cerca del centro. Para ello, además de las fotografías requeridas, se puede incluir un archivo PDF que acredite que el grupo de matriculación pertenece a un programa de educación online.
+
+Además de las extensiones necesarias, como \textit{Dart Language} y \textit{Flutter Support}, y de la opcional \textit{GitHub Copilot}, se pueden instalar otras extensiones en Visual Studio Code que dependen de las preferencias y estilo de trabajo de cada programador. A continuación, se presenta una lista de extensiones recomendadas que pueden facilitar y optimizar el desarrollo del proyecto:
+
+\begin{itemize} \item \textbf{Activitus Bar:} Simplifica la navegación entre vistas y herramientas, permitiendo cambiar rápidamente entre el explorador de archivos, la vista de control de versiones y otros paneles de trabajo. \item \textbf{Error Lens:} Muestra los errores y advertencias directamente en el editor, junto al código relevante, para que sean fáciles de identificar y resolver sin necesidad de abrir la consola de problemas. \item \textbf{Paste JSON as Code:} Permite pegar estructuras JSON directamente en el editor y convertirlas automáticamente en modelos o clases de código en lenguaje Dart u otros lenguajes. \item \textbf{Better Comments:} Mejora la legibilidad de los comentarios en el código al aplicar formatos visuales diferenciados, como colores y estilos, para tareas pendientes, advertencias, preguntas o anotaciones importantes. \item \textbf{Pubspec Assist:} Facilita la edición del archivo \texttt{pubspec.yaml} para agregar dependencias de Flutter o Dart sin necesidad de escribirlas manualmente, buscando automáticamente las versiones disponibles. \item \textbf{Bloc:} Ofrece herramientas específicas para desarrollar aplicaciones basadas en el patrón Bloc, ayudando en la organización del código y el manejo del estado. \item \textbf{Awesome Flutter Snippets:} Proporciona fragmentos de código (\textit{snippets}) predefinidos para acelerar la escritura de widgets, estructuras comunes y patrones repetitivos en Flutter. \item \textbf{GitGraph:} Muestra una representación gráfica de las ramas y los \textit{commits} en un repositorio Git, facilitando el seguimiento del historial y la gestión de versiones. \end{itemize}
+
+Estas extensiones no son obligatorias, pero pueden mejorar significativamente la productividad y la experiencia del programador al trabajar en el proyecto \textbf{Eco City Tours}. Su selección dependerá de las necesidades específicas y preferencias de cada desarrollador.
+
+\subsection{Obtención del código fuente}
+
+El código fuente del proyecto está disponible en un repositorio de GitHub. Sigue los pasos a continuación para clonar el repositorio:
+
+\begin{enumerate}
+	\item Asegúrate de tener \textbf{Git} instalado en tu sistema. Si no lo tienes, descárgalo e instálalo desde \url{https://git-scm.com/}.
+	
+	\item Clona el repositorio utilizando el siguiente comando en tu terminal:
+	\begin{verbatim}
+		git clone https://github.com/fps1001/TFGII_FPisot.git
+	\end{verbatim}
+	
+	\item Cambia al directorio donde se encuentra la aplicación ejecutando:
+	\begin{verbatim}
+		cd TFGII_FPisot/project-app/project_app
+	\end{verbatim}
+	
+\end{enumerate}
+
+
+
+
+\section{Compilación, instalación y ejecución del proyecto} \label{sec:compilacion}
+
+Esta sección describe los pasos necesarios para compilar, instalar y ejecutar el proyecto \textbf{Eco City Tours}. Incluye la configuración de servicios externos como Google y Firebase, la obtención de claves API y la preparación del entorno de desarrollo.
+
+\subsection{Configuración de Google Cloud Platform}
+
+El proyecto utiliza los siguientes servicios de Google:
+\begin{itemize}
+	\item \textbf{Google Maps SDK for Android:} Para mostrar mapas en la aplicación.
+	\item \textbf{Google Places API:} Para obtener información sobre puntos de interés.
+	\item \textbf{Google Directions API:} Para calcular rutas.
+	\item \textbf{Generative AI (Gemini):} Para funcionalidades avanzadas basadas en modelos de lenguaje.
+\end{itemize}
+
+\subsubsection{Pasos para configurar Google Cloud}
+\begin{enumerate}
+	\item Regístrate en \href{https://cloud.google.com/}{Google Cloud Platform} y crea un nuevo proyecto.
+	\item Activa las siguientes API desde la consola de Google Cloud:
+	\begin{itemize}
+		\item \texttt{Maps SDK for Android}.
+		\item \texttt{Places API}.
+		\item \texttt{Directions API}.
+		\item \texttt{Generative AI API (Gemini)}.
+	\end{itemize}
+	\item Genera claves API para cada servicio. Guarda estas claves en un archivo \texttt{.env} ubicado en la raíz del proyecto. El archivo debe tener el siguiente formato:
+	\begin{verbatim}
+		GOOGLE_API_KEY=<TU_CLAVE>
+		GEMINI_API_KEY=<TU_CLAVE>
+		GOOGLE_DIRECTIONS_API_KEY=<TU_CLAVE>
+		GOOGLE_PLACES_API_KEY=<TU_CLAVE>
+	\end{verbatim}
+\end{enumerate}
+
+\subsection{Configuración de Firebase}
+
+Firebase se utiliza para almacenamiento en la nube y análisis de errores. Los servicios configurados incluyen:
+\begin{itemize}
+	\item \textbf{Cloud Firestore:} Base de datos en tiempo real para gestionar datos de la aplicación.
+	\item \textbf{Crashlytics:} Herramienta para el análisis y reporte de errores.
+\end{itemize}
+
+\subsubsection{Pasos para configurar Firebase}
+\begin{enumerate}
+	\item Regístrate en \href{https://firebase.google.com/}{Firebase Console} y crea un proyecto con el nombre \texttt{eco-city-tour}.
+	\item Configura \textbf{Cloud Firestore}:
+	\begin{itemize}
+		\item Accede a la consola de Firebase y habilita Firestore en modo "Producción".
+	\end{itemize}
+	\item Configura \textbf{Crashlytics}:
+	\begin{itemize}
+		\item Ve a la sección de Crashlytics en Firebase Console y sigue las instrucciones para integrar Crashlytics con tu aplicación.
+	\end{itemize}
+	\item Descarga el archivo \texttt{google-services.json} desde la consola de Firebase y colócalo en el directorio \texttt{/android/app/} del proyecto.
+	\item Agrega las siguientes variables al archivo \texttt{.env}:
+	\begin{verbatim}
+		FIREBASE_API_KEY=<TU_CLAVE>
+		FIREBASE_APP_ID=<TU_CLAVE>
+		FIREBASE_MESSAGING_SENDER_ID=<TU_CLAVE>
+		FIREBASE_PROJECT_ID=eco-city-tour
+		FIREBASE_STORAGE_BUCKET=eco-city-tour.appspot.com
+		FIREBASE_PACKAGE_NAME=com.example.project_app
+		FIREBASE_PROJECT_NUMBER=<TU_NUMERO>
+		MOBILESDK_APP_ID=<TU_CLAVE>
+	\end{verbatim}
+\end{enumerate}
+
+\subsection{Compilación y ejecución del proyecto}
+
+Una vez configurados los servicios externos, el proyecto puede compilarse y ejecutarse siguiendo estos pasos:
+\begin{enumerate}
+	\item Asegúrate de que el archivo \texttt{.env} está en la raíz del proyecto.
+	\item Instala las dependencias necesarias ejecutando:
+	\begin{verbatim}
+		flutter pub get
+	\end{verbatim}
+	\item Compila y ejecuta la aplicación en un dispositivo o emulador:
+	\begin{verbatim}
+		flutter run
+	\end{verbatim}
+\end{enumerate}
+
+\section{Pruebas del sistema}
+
+El sistema fue sometido a diversas pruebas para garantizar su correcto funcionamiento, su calidad de código y la cobertura de los casos de uso. A continuación, se detallan los enfoques y herramientas utilizados durante el proceso de pruebas.
+
+\subsection{Control de calidad del código con SonarCloud}
+
+Para evaluar la calidad del código, se utilizó \textbf{SonarCloud}, una herramienta que permite analizar métricas clave como complejidad, mantenibilidad, duplicación de código y cobertura de tests. El análisis de calidad se automatizó a través del flujo de trabajo definido en el archivo \href{https://github.com/fps1001/TFGII_FPisot/tree/main/.github/workflows}{\texttt{.github/workflows}}, donde se configuraron los siguientes pasos:
+\begin{itemize}
+	\item Ejecución de las pruebas automatizadas para garantizar que no existan errores en el código.
+	\item Generación del archivo \texttt{lcov.info}, que contiene los datos de cobertura del proyecto.
+	\item Envío automático de la cobertura de código y otros resultados a SonarCloud para su análisis.
+\end{itemize}
+
+Este flujo de trabajo se ejecuta automáticamente desde tres archivos, cada uno realizando una labor concreta: compilación, testing y calidad. Cada vez que se realiza un \texttt{push} al repositorio o se abre una \texttt{pull request} se valida la calidad del código incrementado, permitiendo un control continuo.
+
+
+
+\subsection{Pruebas funcionales y análisis inicial}
+
+Dada la naturaleza del proyecto y el uso de Modelos de Lenguaje de Gran Escala (LLM), inicialmente se realizaron pruebas manuales para evaluar la calidad de los resultados. Estas pruebas se centraron en generar rutas y puntos de interés en la ciudad donde resido, verificando la precisión y relevancia de las recomendaciones generadas.
+
+\subsection{Pruebas automatizadas}
+
+Se implementaron pruebas automatizadas en la carpeta \texttt{test/} del proyecto para garantizar que cada componente funcione correctamente. Las pruebas fueron desarrolladas utilizando los siguientes paquetes de \textbf{Flutter}:
+
+\begin{itemize}
+	\item \texttt{test}: Paquete principal para escribir y ejecutar pruebas unitarias.
+	\item \texttt{bloc\_test}: Herramienta especializada para probar lógica de negocio implementada con el patrón Bloc.
+	\item \texttt{mockito} y \texttt{mocktail}: Utilizados para generar \textit{mocks} de servicios y (\textit{blocs}) según las necesidades de los tests.
+\end{itemize}
+
+Cada archivo \texttt{.dart} cuenta con un conjunto de tests que validan su comportamiento esperado. Estos incluyen pruebas unitarias para funciones específicas y pruebas de integración para verificar el correcto flujo entre los componentes.
+En la Figura \ref{fig:sonarcloud} se puede ver el resumen que Sonar Cloud realizó a uno de los cambios en el repositorio del proyecto.
+\imagen{sonarcloud}{Resumen de análisis de la rama principal en SonarCloud}
+Como se puede ver en el resumen se indica la cobertura y aparece una nueva \textit{issue} correspondiente al nuevo código.
+
+Para poder replicar la configuración llevada a cabo en este \acrlong{tfg}, el programador debería crear o iniciar cuenta en SonarCloud~\cite{sonarcloud} y crear una nueva organización. A continuación indicar que se quiere crear un nuevo proyecto. Como se puede ver en la Figura~\ref{fig:sonarcloud-new-project} si la cuenta está asociada a Github aparecen automáticamente los repositorios del programador.
+\imagen{sonarcloud-new-project}{Creación de nuevo proyecto en SonarCloud}
+Los proyectos creados en SonarCloud deben ser públicos para cumplir con los criterios de gratuidad. Si se desea analizar proyectos de forma privada, es necesario contratar un plan de pago mensual. Como alternativa, se puede instalar un servidor local de SonarQube, lo que permite realizar análisis directamente en la máquina del desarrollador.
+
+\subsubsection{Ejecución de los tests}
+
+Para ejecutar las pruebas automatizadas y generar un reporte de cobertura, es necesario ejecutar el siguiente comando en la raíz del proyecto:
+\begin{verbatim}
+	flutter test --coverage
+\end{verbatim}
+
+Este comando ejecuta todos los tests definidos y genera un archivo \texttt{lcov.info} con los datos de cobertura. Estos datos son posteriormente utilizados por SonarCloud para generar un reporte detallado sobre qué partes del código están cubiertas por los tests y cuáles no.
+\imagen{sonarcloud-issues}{Evolución de casos abiertos en SonarCloud}
+\subsection{Conclusiones de las pruebas}
+
+El sistema fue sometido a un conjunto completo de pruebas funcionales y de calidad, logrando:
+\begin{itemize}
+	\item Identificar y corregir errores en fases tempranas del desarrollo.
+	\item Garantizar una alta cobertura del código, reflejada en los reportes de SonarCloud.
+	\item Validar la precisión y relevancia de las recomendaciones generadas por los LLM en contextos reales.
+\end{itemize}
+
+Estas pruebas aseguran que el proyecto \textbf{Eco City Tours} cumple con los estándares de calidad necesarios para un entorno de producción.

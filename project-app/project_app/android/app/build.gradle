@@ -1,0 +1,95 @@
+plugins {
+    id "com.android.application" // No especificar versión aquí
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
+}
+
+
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0"
+}
+
+def getEnvVariable(String name) {
+    Properties properties = new Properties()
+    def envFile = file("${rootProject.projectDir}/../.env")
+    if (envFile.exists()) {
+        envFile.withInputStream { stream ->
+            properties.load(stream)
+        }
+    } else {
+        println "Warning: .env file not found at ${envFile.path}"
+    }
+    return properties[name]
+}
+
+android {
+    namespace = "com.example.project_app"
+    compileSdk = 34  // Actualizo el sdk para compatibilidad con firebase
+    ndkVersion = flutter.ndkVersion
+
+compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17 // Cambia a 17
+        targetCompatibility = JavaVersion.VERSION_17 // Cambia a 17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17" // Cambia a 17 para Kotlin también
+    }
+
+
+    defaultConfig {
+        applicationId = "com.example.project_app"
+        minSdk = 23
+        targetSdk = 34  // Actualizo el sdk para compatibilidad con firebase
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+
+        // Agrega la clave API a los placeholders del manifiesto
+        manifestPlaceholders = [
+            googleApiKey: getEnvVariable("GOOGLE_API_KEY") ?: "",
+            mapboxApiKey: getEnvVariable("MAPBOX_API_KEY") ?: ""
+        ]
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            firebaseCrashlytics {
+                mappingFileUploadEnabled false
+            }
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
+}
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

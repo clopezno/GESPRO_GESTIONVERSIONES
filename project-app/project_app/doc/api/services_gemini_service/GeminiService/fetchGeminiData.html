@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the fetchGeminiData method from the GeminiService class, for the Dart programming language.">
+  <title>fetchGeminiData method - GeminiService class - gemini_service library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">project_app</a></li>
+    <li><a href="../../services_gemini_service/services_gemini_service-library.html">services\gemini_service.dart</a></li>
+    <li><a href="../../services_gemini_service/GeminiService-class.html">GeminiService</a></li>
+    <li class="self-crumb">fetchGeminiData static method</li>
+  </ol>
+  <div class="self-name">fetchGeminiData</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="services_gemini_service&#47;GeminiService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">fetchGeminiData</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../models_point_of_interest/PointOfInterest-class.html">PointOfInterest</a></span>&gt;</span></span>&gt;</span></span>
+<span class="name ">fetchGeminiData</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="fetchGeminiData-param-city"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">city</span>, </span></li>
+<li><span class="parameter" id="fetchGeminiData-param-nPoi"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nPoi</span>, </span></li>
+<li><span class="parameter" id="fetchGeminiData-param-userPreferences"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">userPreferences</span>, </span></li>
+<li><span class="parameter" id="fetchGeminiData-param-maxTime"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">maxTime</span>, </span></li>
+<li><span class="parameter" id="fetchGeminiData-param-mode"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">mode</span>, </span></li>
+<li><span class="parameter" id="fetchGeminiData-param-systemInstruction"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">systemInstruction</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Obtiene puntos de interés turísticos basados en los parámetros proporcionados.</p>
+<ul>
+<li><code>city</code>: Nombre de la ciudad para la búsqueda de POIs.</li>
+<li><code>nPoi</code>: Número de puntos de interés a generar.</li>
+<li><code>userPreferences</code>: Lista de intereses del usuario.</li>
+<li><code>maxTime</code>: Tiempo máximo permitido para moverse entre POIs en minutos.</li>
+<li><code>mode</code>: Modo de transporte ("walking" o "cycling").</li>
+<li><code>systemInstruction</code>: Instrucción personalizada para ajustar el comportamiento del modelo.</li>
+</ul>
+<p>Retorna una lista de <a href="../../models_point_of_interest/PointOfInterest-class.html">PointOfInterest</a> o una lista vacía si ocurre algún error.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static Future&lt;List&lt;PointOfInterest&gt;&gt; fetchGeminiData({
+  required String city,
+  required int nPoi,
+  required List&lt;String&gt; userPreferences,
+  required double maxTime,
+  required String mode,
+  required String systemInstruction,
+}) async {
+  &#47;&#47; Cargar las variables de entorno
+  await dotenv.load();
+  String geminiApi = dotenv.env[&#39;GEMINI_API_KEY&#39;] ?? &#39;&#39;;
+
+  &#47;&#47; Validar si la clave de API está disponible
+  if (geminiApi.isEmpty) {
+    log.e(
+        &#39;GeminiService: No se encontró la variable de entorno \$GEMINI_API_KEY&#39;);
+    return [];
+  }
+
+  &#47;&#47; Instrucción básica para el modelo
+  String baserol =
+      &#39;Eres un guía turístico comprometido con el medio ambiente preocupado por la gentrificación de las ciudades y el turismo masivo&#39;;
+
+  &#47;&#47; Configuración del modelo generativo
+  final model = GenerativeModel(
+    model: &#39;gemini-1.5-pro&#39;,
+    apiKey: geminiApi,
+    generationConfig: GenerationConfig(
+      temperature: 1,
+      topK: 64,
+      topP: 0.95,
+      maxOutputTokens: 8192,
+      responseMimeType: &#39;application&#47;json&#39;, &#47;&#47; Respuesta en formato JSON
+      responseSchema: Schema(
+        SchemaType.array, &#47;&#47; Esperamos un array de POIs
+        items: Schema(
+          SchemaType.object,
+          properties: {
+            &quot;gps&quot;: Schema(SchemaType.array, items: Schema(SchemaType.number)),
+            &quot;name&quot;: Schema(SchemaType.string),
+            &quot;description&quot;: Schema(SchemaType.string),
+          },
+          requiredProperties: [&#39;gps&#39;, &#39;name&#39;], &#47;&#47; Propiedades obligatorias
+        ),
+      ),
+    ),
+    systemInstruction: Content.system(baserol + systemInstruction),
+  );
+
+  &#47;&#47; Configuración del mensaje al modelo
+  final chat = model.startChat();
+  final message =
+      &#39;&#39;&#39;Genera un array de $nPoi objetos JSON, cada uno representando un punto de interés turístico diferente en $city.
+      Además, no sirve cualquier lugar, puesto que el tiempo que se tarde en viajar entre ellos no debe ser superior en ningún momento a $maxTime minutos $mode.
+      Elige lugares que conozcas bien y que no estén muy separados unos de otros.
+Cada objeto debe incluir:
+* nombre (string)
+* descripción (string)
+* coordenadas (array de dos números: latitud y longitud)
+
+
+**Ejemplo de objeto JSON:**
+```json
+{
+  &quot;nombre&quot;: &quot;Plaza Mayor&quot;,
+  &quot;descripcion&quot;: &quot;La Plaza Mayor de Salamanca, del siglo XVIII, es una de las más bellas plazas monumentales urbanas de Europa. Comenzó a construirse en 1729 a instancias del corregidor Rodrigo Caballero Llanes. El proyecto fue a cargo del arquitecto Alberto de Churriguera, al que siguió su sobrino Manuel de Lara Churriguera y fue finalizado por Andrés García de Quiñones en 1755. ...&quot;,
+  &quot;coordenadas&quot;: [40.965027795465176, -5.664062074092496],
+}
+Ten en cuenta el tipo de cliente al que le ofreces información y los siguientes intereses del usuario: ${userPreferences.join(&#39;, &#39;)}.
+
+&#39;&#39;&#39;;
+
+  final content = Content.text(message);
+
+  &#47;&#47; Enviar mensaje al modelo y obtener respuesta
+  final response = await chat.sendMessage(content);
+
+  if (response.text == null || response.text!.isEmpty) {
+    log.w(&#39;GeminiService: No se recibió respuesta del modelo.&#39;);
+    return [];
+  }
+
+  &#47;&#47; Procesar la respuesta y convertirla a objetos [PointOfInterest]
+  List&lt;PointOfInterest&gt; pointsOfInterest = [];
+  try {
+    &#47;&#47; Decodifica el JSON como una lista de mapas
+    List&lt;dynamic&gt; jsonResponse = json.decode(response.text!);
+    &#47;&#47; Mapea los datos del JSON a una lista de objetos PointOfInterest
+    pointsOfInterest = jsonResponse.map((poiJson) {
+      List&lt;dynamic&gt; gps = poiJson[&#39;gps&#39;];
+      LatLng gpsPoint = LatLng(gps[0].toDouble(), gps[1].toDouble());
+
+      return PointOfInterest(
+        gps: gpsPoint,
+        name: poiJson[&#39;name&#39;] ?? &#39;&#39;,
+        description: poiJson[&#39;description&#39;],
+      );
+    }).toList();
+
+    log.i(
+        &#39;GeminiService: Se obtuvieron ${pointsOfInterest.length} puntos de interés en $city&#39;);
+  } catch (e, stackTrace) {
+    log.e(&#39;GeminiService: Error al parsear la respuesta JSON&#39;,
+        error: e, stackTrace: stackTrace);
+    return []; &#47;&#47; Devuelve lista vacía si hay un error para no generar crashes.
+  }
+
+  return pointsOfInterest;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">project_app</a></li>
+    <li><a href="../../services_gemini_service/services_gemini_service-library.html">gemini_service</a></li>
+    <li><a href="../../services_gemini_service/GeminiService-class.html">GeminiService</a></li>
+    <li class="self-crumb">fetchGeminiData static method</li>
+</ol>
+
+
+    <h5>GeminiService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    project_app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

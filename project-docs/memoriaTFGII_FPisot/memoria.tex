@@ -1,0 +1,607 @@
+\documentclass[a4paper,12pt,twoside]{memoir}
+
+% Castellano
+\usepackage[spanish,es-tabla]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Scalable font
+\usepackage{microtype}
+\usepackage{placeins}
+% Añado paquete para poder añadir TODO's
+\usepackage{todonotes}
+
+\RequirePackage{booktabs}
+\RequirePackage[table]{xcolor}
+\RequirePackage{xtab}
+\RequirePackage{multirow}
+
+% Añado listings para ver el código en la memoria mejor
+\usepackage{listings}
+
+% Definir colores personalizados
+\lstset{
+	basicstyle=\ttfamily\footnotesize,  % Estilo básico del texto
+	keywordstyle=\color{blue},          % Estilo de las palabras clave
+	commentstyle=\color{green},         % Estilo de los comentarios
+	stringstyle=\color{red},            % Estilo de las cadenas
+	numbers=left,                       % Números de línea en la izquierda
+	numberstyle=\tiny\color{gray},      % Estilo de los números de línea
+	stepnumber=1,                       % Cada línea numerada
+	frame=single,                       % Cuadro alrededor del código
+	breaklines=true,                    % Romper líneas largas
+	captionpos=b,                       % Posición del caption (debajo)
+	tabsize=2,                          % Tamaño de tabulación
+	showspaces=false,                   % No mostrar espacios
+	showstringspaces=false,             % No mostrar espacios en las cadenas
+	showtabs=false,                     % No mostrar tabulaciones
+	language=Python                     % Se usa el estilo de Python como base
+}
+
+\renewcommand\lstlistlistingname{Índice de Códigos}
+\renewcommand\lstlistingname{Código}
+
+
+
+% Links
+\PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
+\hypersetup{
+	allcolors = {red}
+}
+
+% Acrónimos y glosario
+\usepackage[acronym]{glossaries}
+\makenoidxglossaries
+%\usepackage[acronym]{glossaries}
+%\makeglossaries
+
+\newacronym{cod}{CoT}{\textit{Cadena de pensamiento}}
+\newacronym{crud}{CRUD}{\textit{Create, Read, Update, Delete}}
+\newacronym{gui}{GUI}{\textit{{Interfaz Gráfica de Usuario}}}
+\newacronym{ia}{IA}{\textit{{Inteligencia Artificial}}}
+\newacronym{ide}{IDE}{\textit{{Entorno de Desarrollo Integrado}}}
+\newacronym{llm}{LLM}{\textit{Modelos de Lenguaje de Gran Escala}}
+\newacronym{nlp}{NLP}{\textit{Procesamiento del Lenguaje Natural}}
+\newacronym{odm}{ODM}{\textit{Objetivos de Desarrollo del Milenio}}
+\newacronym{ods}{ODS}{\textit{Objetivos de Desarrollo Sostenible}}
+\newacronym{ods4}{ODS4}{\textit{Objetivos de Desarrollo Sostenible: Educación de Calidad}}
+\newacronym{ods11}{ODS11}{\textit{Ciudades y Comunidades Sostenibles}}
+\newacronym{onu}{ONU}{\textit{Organización de las Naciones Unidas}}
+\newacronym{osm}{OSM}{\textit{{Open Street Maps}}}
+\newacronym{osrm}{OSRM}{\textit{{Open Source Routing Machine}}}
+\newacronym{pdi}{PDI}{\textit{Puntos de Interés}}
+\newacronym{rag}{RAG}{\textit{Retrieval Augmented Generation}}
+\newacronym{sc}{Smart City}{\textit{Ciudades Inteligentes}}
+\newacronym{sdg}{SDG}{\textit{Sustainable Development Goals}}
+\newacronym{sdg11}{SDG11}{\textit{Sustainable Cities and Communities}}
+\newacronym{sica}{SICA}{\textit{{Sistema de Información sobre Contaminación Acústica}}}
+\newacronym{sig}{GIS}{\textit{Sistemas de Información Geográfica}}
+\newacronym{tfg}{TFG}{\textit{Trabajo de Fin de Grado}}
+\newacronym{bloc}{BLoC}{Business Logic Component}
+\newacronym{ci}{CI}{Integración Continua}
+
+
+
+% Acrónimos en inglés
+\newacronym{llme}{LLM}{\textit{Large Language Models}}
+\newacronym{gis}{SIG}{\textit{Geographic Information Systems}}
+\newacronym{poie}{POI}{\textit{Points of Interest}}
+
+% Glosario
+\newglossaryentry{ingenieria_prompt}
+{
+	name=Ingeniería del prompt,
+	description={Proceso de optimización y diseño de instrucciones (prompts) para mejorar las respuestas de los modelos de lenguaje a gran escala (LLM)}
+}
+\newglossaryentry{zero-shot}{
+	name={Zero-shot learning},
+	description={Técnica en la que el modelo no recibe ejemplos previos sobre cómo realizar una tarea. El modelo interpreta la solicitud basado únicamente en el contexto.}
+}
+
+\newglossaryentry{few-shot}{
+	name={Few-shot learning},
+	description={Técnica en la que el modelo recibe algunos ejemplos en el prompt para comprender con mayor precisión lo que se espera.}
+}
+
+\newglossaryentry{tool-calling}{
+	name={Tool calling (Function calling)},
+	description={Técnica que garantiza que el modelo genere una salida en un formato estructurado y procesable, como JSON.}
+}
+
+\newglossaryentry{rag_glos}{
+	name={RAG},
+	description={\textit{Generación Aumentada por Recuperación}, técnica en la que un modelo LLM se nutre de información adicional para mejorar sus respuestas}
+}
+
+\newglossaryentry{agentes}{
+	name={Agentes},
+	description={Herramientas que alimentan a un LLM con información adicional obtenida de diversas fuentes como bases de datos, motores de búsqueda o páginas web}
+}
+
+\newglossaryentry{tokenizacion}{
+	name={Tokenización},
+	description={Proceso de dividir una cadena de texto en elementos más pequeños (tokens) para que sean procesados por un modelo de lenguaje}
+}
+
+\newglossaryentry{embeddings}{
+	name={Embeddings},
+	description={Técnica que convierte información en vectores numéricos de n dimensiones, utilizados por los modelos LLM para representar datos en un espacio vectorial}
+}
+
+\newglossaryentry{zero_shot}{
+	name={Zero-shot learning},
+	description={Técnica en la que el LLM realiza una tarea sin recibir ejemplos previos, basándose únicamente en su entrenamiento y contexto}
+}
+
+\newglossaryentry{few_shot}{
+	name={Few-shot learning},
+	description={Técnica en la que se proporcionan al modelo algunos ejemplos de la tarea que se quiere realizar, para mejorar la precisión de la respuesta}
+}
+
+\newglossaryentry{tool_calling}{
+	name={Tool calling},
+	description={Método utilizado para generar salidas precisas en formatos específicos, como JSON, facilitando la integración del LLM en aplicaciones}
+}
+
+
+
+
+
+% Ecuaciones
+\usepackage{amsmath}
+
+% Rutas de fichero / paquete
+\newcommand{\ruta}[1]{{\sffamily #1}}
+
+% Párrafos
+\nonzeroparskip
+
+% Huérfanas y viudas
+\widowpenalty100000
+\clubpenalty100000
+
+% Imágenes
+
+% Comando para insertar una imagen en un lugar concreto.
+% Los parámetros son:
+% 1 --> Ruta absoluta/relativa de la figura
+% 2 --> Texto a pie de figura
+% 3 --> Tamaño en tanto por uno relativo al ancho de página
+\usepackage{graphicx}
+\newcommand{\imagen}[3]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
+% Comando para insertar una imagen sin posición.
+% Los parámetros son:
+% 1 --> Ruta absoluta/relativa de la figura
+% 2 --> Texto a pie de figura
+% 3 --> Tamaño en tanto por uno relativo al ancho de página
+\newcommand{\imagenflotante}[3]{
+	\begin{figure}
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+}
+
+% El comando \figura nos permite insertar figuras comodamente, y utilizando
+% siempre el mismo formato. Los parametros son:
+% 1 --> Porcentaje del ancho de página que ocupará la figura (de 0 a 1)
+% 2 --> Fichero de la imagen
+% 3 --> Texto a pie de imagen
+% 4 --> Etiqueta (label) para referencias
+% 5 --> Opciones que queramos pasarle al \includegraphics
+% 6 --> Opciones de posicionamiento a pasarle a \begin{figure}
+\newcommand{\figuraConPosicion}[6]{%
+  \setlength{\anchoFloat}{#1\textwidth}%
+  \addtolength{\anchoFloat}{-4\fboxsep}%
+  \setlength{\anchoFigura}{\anchoFloat}%
+  \begin{figure}[#6]
+    \begin{center}%
+      \Ovalbox{%
+        \begin{minipage}{\anchoFloat}%
+          \begin{center}%
+            \includegraphics[width=\anchoFigura,#5]{#2}%
+            \caption{#3}%
+            \label{#4}%
+          \end{center}%
+        \end{minipage}
+      }%
+    \end{center}%
+  \end{figure}%
+}
+
+%
+% Comando para incluir imágenes en formato apaisado (sin marco).
+\newcommand{\figuraApaisadaSinMarco}[5]{%
+  \begin{figure}%
+    \begin{center}%
+    \includegraphics[angle=90,height=#1\textheight,#5]{#2}%
+    \caption{#3}%
+    \label{#4}%
+    \end{center}%
+  \end{figure}%
+}
+% Para las tablas
+\newcommand{\otoprule}{\midrule [\heavyrulewidth]}
+%
+% Nuevo comando para tablas pequeñas (menos de una página).
+\newcommand{\tablaSmall}[5]{%
+ \begin{table}
+  \begin{center}
+   \rowcolors {2}{gray!35}{}
+   \begin{tabular}{#2}
+    \toprule
+    #4
+    \otoprule
+    #5
+    \bottomrule
+   \end{tabular}
+   \caption{#1}
+   \label{tabla:#3}
+  \end{center}
+ \end{table}
+}
+
+%
+% Nuevo comando para tablas pequeñas (menos de una página).
+\newcommand{\tablaSmallSinColores}[5]{%
+ \begin{table}[H]
+  \begin{center}
+   \begin{tabular}{#2}
+    \toprule
+    #4
+    \otoprule
+    #5
+    \bottomrule
+   \end{tabular}
+   \caption{#1}
+   \label{tabla:#3}
+  \end{center}
+ \end{table}
+}
+
+\newcommand{\tablaApaisadaSmall}[5]{%
+\begin{landscape}
+  \begin{table}
+   \begin{center}
+    \rowcolors {2}{gray!35}{}
+    \begin{tabular}{#2}
+     \toprule
+     #4
+     \otoprule
+     #5
+     \bottomrule
+    \end{tabular}
+    \caption{#1}
+    \label{tabla:#3}
+   \end{center}
+  \end{table}
+\end{landscape}
+}
+
+%
+% Nuevo comando para tablas grandes con cabecera y filas alternas coloreadas en gris.
+\newcommand{\tabla}[6]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+      #5
+      \otoprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \toprule
+      #5
+      \otoprule
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \rowcolors {2}{gray!35}{}
+    \begin{xtabular}{#2}
+      #6
+      \bottomrule
+    \end{xtabular}
+    \label{tabla:#4}
+  \end{center}
+}
+
+%
+% Nuevo comando para tablas grandes con cabecera.
+\newcommand{\tablaSinColores}[6]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+      #5
+      \otoprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \toprule
+      #5
+      \otoprule
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \begin{xtabular}{#2}
+      #6
+      \bottomrule
+    \end{xtabular}
+    \label{tabla:#4}
+  \end{center}
+}
+
+%
+% Nuevo comando para tablas grandes sin cabecera.
+\newcommand{\tablaSinCabecera}[5]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \hline
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+  \begin{xtabular}{#2}
+    #5
+   \bottomrule
+  \end{xtabular}
+  \label{tabla:#4}
+  \end{center}
+}
+
+
+
+\definecolor{cgoLight}{HTML}{EEEEEE}
+\definecolor{cgoExtralight}{HTML}{FFFFFF}
+
+%
+% Nuevo comando para tablas grandes sin cabecera.
+\newcommand{\tablaSinCabeceraConBandas}[5]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \hline
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \rowcolors[]{1}{cgoExtralight}{cgoLight}
+
+  \begin{xtabular}{#2}
+    #5
+   \bottomrule
+  \end{xtabular}
+  \label{tabla:#4}
+  \end{center}
+}
+
+
+
+\graphicspath{ {./img/} }
+
+% Capítulos
+\chapterstyle{bianchi}
+\newcommand{\capitulo}[2]{
+	\setcounter{chapter}{#1}
+	\setcounter{section}{0}
+	\setcounter{figure}{0}
+	\setcounter{table}{0}
+	\chapter*{\thechapter.\enskip #2}
+	\addcontentsline{toc}{chapter}{\thechapter.\enskip #2}
+	\markboth{#2}{#2}
+}
+
+% Apéndices
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand*\cftappendixname{\appendixname}
+
+\newcommand{\apendice}[1]{
+	%\renewcommand{\thechapter}{A}
+	\chapter{#1}
+}
+
+\renewcommand*\cftappendixname{\appendixname\ }
+
+% Formato de portada
+\makeatletter
+\usepackage{xcolor}
+\newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\course}[1]{\def\@course{#1}}
+\definecolor{cpardoBox}{HTML}{E6E6FF}
+\def\maketitle{
+  \null
+  \thispagestyle{empty}
+  % Cabecera ----------------
+\noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}%
+  \vfill
+  
+  % Título proyecto y escudo informática ----------------
+  \colorbox{cpardoBox}{%
+    \begin{minipage}{.8\textwidth}
+      \vspace{.5cm}\Large
+      \begin{center}
+      \textbf{TFG del Grado en Ingeniería Informática}\vspace{.6cm}\\
+      \textbf{\LARGE\@title{}}
+      \end{center}
+      \vspace{.2cm}
+    \end{minipage}
+
+  }%
+  \hfill\begin{minipage}{.20\textwidth}
+    \includegraphics[width=\textwidth]{escudoInfor}
+  \end{minipage}
+  \vfill
+  
+  % Datos de alumno, curso y tutores ------------------
+  \begin{center}%
+  {%
+    \noindent\LARGE
+    Presentado por \@author{}\\ 
+    en Universidad de Burgos --- \@date{}\\
+    Tutor: \@tutor{}\\
+  }%
+  \end{center}%
+  \null
+  \cleardoublepage
+  }
+\makeatother
+
+\newcommand{\nombre}{Fernando Pisot Serrano}
+
+
+% Datos de portada
+\title{\fontsize{18pt}{22pt}\selectfont Eco City Tours\\
+	\fontsize{16pt}{18pt}\selectfont Aplicación móvil para la generación de rutas turísticas sostenibles propuestas por modelos de lenguaje de gran escala}
+\author{\nombre}
+\tutor{Carlos López Nozal}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+%\newpage\null\thispagestyle{empty}\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+
+
+\noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
+
+\noindent D. Carlos López Nozal, profesor del departamento de Ingeniería Informática, área de Lenguajes y Sistemas Informáticos.
+
+\noindent Expone:
+
+\noindent Que el alumno D. \nombre, con DNI 70873328R, ha realizado el Trabajo final de Grado en Ingeniería Informática. 
+
+\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
+
+\begin{center} %\large
+En Burgos, {\large \today}
+\end{center}
+
+\vfill\vfill\vfill
+
+\begin{center}
+  Vº. Bº. del Tutor:\\[2cm]
+  D. Carlos López Nozal \@tutor{}
+  \end{center}
+
+
+\newpage\null\thispagestyle{empty}\newpage
+
+
+
+
+\frontmatter
+
+% Abstract en castellano
+\renewcommand*\abstractname{Resumen}
+\begin{abstract}
+Eco City Tours es una aplicación móvil desarrollada con Flutter que propone al usuario rutas turísticas sostenibles. La aplicación se enfoca en la promoción de rutas no motorizadas, optimizadas para ciclistas y peatones, que conectan lugares de interés con el objetivo de fomentar la movilidad sostenible. Las rutas se generan con tecnologías usando \acrfull{gis}. Los \acrfull{pdi} se enriquecen con información detallada sobre lugares turísticos mediante inteligencia artificial consultando en lenguaje natural a \acrfull{llm}.
+
+Esta aplicación se alinea con el concepto de \acrshort{sc}, promoviendo activamente los \acrfull{ods}, con un enfoque particular en el \acrshort{ods11}: \acrlong{ods11}
+
+
+\end{abstract}
+
+\renewcommand*\abstractname{Descriptores}
+\begin{abstract}
+Movilidad Sostenible, ODS, LLM, Smart City, Flutter.
+\end{abstract}
+
+\clearpage
+
+% Abstract en inglés
+\renewcommand*\abstractname{Abstract}
+\begin{abstract}
+	Eco City Tours is a mobile application \textbf{developed with Flutter} that suggests tourist routes to users. The application focuses on promoting non-motorized routes, optimized for cyclists and pedestrians, connecting points of interest with the goal of fostering sustainable mobility. The routes are generated using technologies based on \acrfull{sig}. The \acrfull{poie} are enriched with detailed information about tourist spots through artificial intelligence, consulting \acrfull{llme} via natural language queries.
+	
+	This application aligns with the concept of \acrshort{sc}, actively promoting the \acrfull{sdg}, with a particular focus on the \acrshort{sdg11}: \acrlong{sdg11}.
+\end{abstract}
+
+\renewcommand*\abstractname{Keywords}
+\begin{abstract}
+	Sustainable Mobility, SDGs, LLM, Smart City, Flutter.
+\end{abstract}
+
+
+
+\clearpage
+
+% Indices
+\tableofcontents
+
+\clearpage
+
+\listoffigures
+
+\clearpage
+
+\listoftables
+\clearpage
+
+\lstlistoflistings
+\clearpage
+
+\mainmatter
+\include{./tex/1_Introduccion}
+\include{./tex/2_Objetivos_del_proyecto}
+\include{./tex/3_Conceptos_teoricos}
+\include{./tex/4_Tecnicas_y_herramientas}
+\include{./tex/5_Aspectos_relevantes_del_desarrollo_del_proyecto}
+\include{./tex/6_Trabajos_relacionados}
+\include{./tex/7_Conclusiones_Lineas_de_trabajo_futuras}
+
+\printnoidxglossary[type=\acronymtype]
+\printnoidxglossary[]
+%\printacronyms
+%\printglossary
+%\printnoidxglossary[type=\acronymtype]
+%\printglossary[type=\acronymtype]
+%\printglossary
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+
+\end{document}

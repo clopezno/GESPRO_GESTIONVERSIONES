@@ -1,0 +1,810 @@
+\apendice{Especificación de Requisitos}
+
+\section{Introducción}
+En esta sección se presentan los requisitos de la aplicación, abordando tanto los objetivos generales como los específicos del proyecto. Se incluye un catálogo detallado de los requisitos funcionales y no funcionales, que definen el comportamiento y las características técnicas de la aplicación. Además, se proporciona una especificación detallada de los requisitos a través de tablas de casos de uso, complementadas con su respectivo diagrama de casos de uso, lo que facilita una comprensión clara de las interacciones principales de los usuarios con el sistema.
+
+
+\section{Objetivos generales}
+La misión fundamental de este proyecto persigue conseguir los siguientes propósitos:
+\begin{itemize}
+	\item \textbf{Fomentar el turismo sostenible:} Facilitar a los usuarios la exploración de ciudades y zonas rurales promoviendo al mostrar rutas no motorizadas y modos de transporte como caminar y el uso de bicicletas.
+	
+	\item \textbf{Optimización de experiencias turísticas personalizadas:} Ofrecer a los usuarios rutas personalizadas que se ajusten a sus intereses y preferencias, proporcionando información detallada y relevante sobre los puntos de interés seleccionados.
+	
+	\item \textbf{Promover el uso de tecnologías inteligentes en el turismo:} Utilizar tecnologías avanzadas como servicios GIS, Google Places y LLM para mejorar la experiencia del usuario, facilitando la generación automática de rutas y la obtención de información actualizada sobre los destinos turísticos.
+	
+	\item \textbf{Mejorar la accesibilidad a la información turística:} Proporcionar una plataforma fácil de usar que permita a los usuarios acceder rápidamente a descripciones, fotos y otros datos sobre los puntos de interés, mejorando su experiencia de exploración.
+	
+	\item \textbf{Rutas generadas sin intereses comerciales:} Generar rutas turísticas sin influencias comerciales, ofreciendo una experiencia imparcial y auténtica, en contraste con otras aplicaciones de recomendaciones de viajes.
+\end{itemize}
+
+\section{Catálogo de requisitos}
+\subsection{Requisitos funcionales}
+\begin{itemize}
+	\item \textbf{RF-1 Solicitar permisos de uso de GPS:} La aplicación solicitará el permiso para acceder al GPS cuando se inicie por primera vez, ya que es necesario para calcular y mostrar la ubicación del usuario en tiempo real.
+	
+	\item \textbf{RF-2 Solicitud de activación de GPS:} Si el GPS está desactivado, la aplicación redirigirá a una pantalla que indicará al usuario la necesidad de activarlo para el correcto funcionamiento de la aplicación.
+	
+	\item \textbf{RF-3 Activación/Desactivación de seguimiento de usuario:} La aplicación mostrará en tiempo real el recorrido del usuario en el mapa, y este seguimiento podrá activarse o desactivarse en cualquier momento mediante un botón.
+	
+	\item \textbf{RF-4 Centrar la situación actual del usuario sobre el mapa:} El usuario podrá centrar manualmente su posición en el mapa mediante un botón dedicado. Además, existe la opción de fijar la ubicación del usuario en el centro del mapa durante su recorrido.
+	
+	\item \textbf{RF-5 Configuración de las preferencias del tour:} El usuario rellenará un formulario indicando el lugar que desea visitar, la cantidad de puntos de interés que quiere ver, sus preferencias de transporte (a pie o bicicleta), sus intereses, y el tiempo máximo que quiere dedicar a la ruta.
+	
+	\item \textbf{RF-6 Cálculo de información a través de un LLM:} La aplicación usará un servicio Gemini para generar los puntos de interés de acuerdo con las propiedades de configuración de la ruta. Además, un servicio Google Places mejorará los datos proporcionando descripciones, fotos, URL, ratings y número de votos de los \acrshort{pdi}.
+	
+	\item \textbf{RF-7 Eliminación de \acrshort{pdi}:} El usuario podrá eliminar puntos de interés tanto desde la pantalla del mapa como desde el resumen de la ruta. Cada vez que un \acrshort{pdi} es eliminado o añadido, la ruta se recalcula automáticamente para ofrecer el trayecto más óptimo.
+	
+	\item \textbf{RF-8 Cálculo de ruta optimizada:} La aplicación calculará la ruta más corta que conecte los puntos de interés seleccionados por el usuario, adaptándose al medio de transporte elegido (a pie o bicicleta).
+	
+	\item \textbf{RF-9 Capacidad de añadir un \acrshort{pdi}:} El usuario podrá agregar manualmente un lugar introduciendo su nombre en la barra de búsqueda. Si el lugar existe en los servicios de Google, será añadido automáticamente a la ruta; de lo contrario, no se tomará ninguna acción.
+	
+	\item \textbf{RF-10 Unirse a Eco City Tour:} El usuario podrá unirse a la ruta existente en cualquier momento. La aplicación calculará la ruta más corta para conectarlo con el tour.
+	
+	\item \textbf{RF-11 Mejora de los puntos de interés con servicio de obtención de información:} Los datos de los puntos de interés se enriquecerán con información adicional obtenida de Google Places, incluyendo ratings, imágenes, URL y número de votos, mejorando la experiencia del usuario.
+	
+	\item \textbf{RF-12 Guardado y carga de las rutas turísticas:} el usuario podrá guardar los tours que quiera y tendrá acceso a los mismos desde la pantalla de configuración del Eco City Tour.
+	
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+\begin{itemize}
+	\item \textbf{RNF-1 Rendimiento:} la aplicación debe demostrar un tiempo de respuesta aceptable para que su manejo sea fluido y la carga de datos sea razonable al enlazar varios servicios asíncronos, de tal manera que no se perjudique la experiencia de usuario. 
+	\item \textbf{RNF-2 Usabilidad:} Eco City Tours debe ser intuitiva y fácil de entender y utilizar.
+	\item \textbf{RNF-3 Disponibilidad:} la aplicación debe estar disponible independientemente de la localización del usuario.
+	\item \textbf{RNF-4 Mantenibilidad:} la aplicación debe ser fácilmente modificable debido a su carácter modular, facilitando el mantenimiento para el desarrollador. Además, \textbf{el uso de SonarCloud} ayuda a asegurar la calidad del código mediante el análisis continuo, lo que permite identificar y corregir errores potenciales y optimizar el código, favoreciendo así la mantenibilidad a largo plazo.
+	
+	\item \textbf{RNF-5 Escalabilidad:} Eco City Tours debe ser capaz de gestionar eficientemente un crecimiento continuo en el número de usuarios, adaptándose sin problemas para ofrecer un rendimiento óptimo incluso en situaciones de alta demanda.
+	\item \textbf{RNF-6 Soporte:} la aplicación debe funcionar en versiones actuales de Android sin problemas de rendimiento o fallos en alguna de sus funcionalidades.
+\end{itemize}
+\clearpage
+
+\section{Especificación de requisitos}
+
+\subsection{Actores del sistema}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor}    & A01 \\
+		\toprule
+		\textbf{Nombre:} 			  & \textbf{Usuario} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Persona que interactúa con la aplicación Eco City Tour para generar y gestionar rutas turísticas personalizadas. \\
+		\textbf{Tipo}                 & Usuario \\
+		\textbf{Objetivo}             & Generar, visualizar y personalizar rutas turísticas basadas en puntos de interés y preferencias personales. \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Completar el formulario de preferencias para generar una ruta.
+			\item Visualizar detalles de puntos de interés.
+			\item Añadir o eliminar puntos de interés de la ruta.
+			\item Iniciar y detener el seguimiento de ubicación.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU01(\ref{cu:config-parametros}), CU02.1(\ref{cu:visualizar-detalles}), CU2.2(\ref{cu:eliminar-pdi}), CU04(\ref{cu:guardar-tour}), CU05(\ref{cu:cargar-tour}). \\
+		\bottomrule
+	\end{tabularx}
+	\caption{A01 - Usuario}
+	\label{actor:usuario}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor}    & A02 \\
+		\toprule
+		\textbf{Nombre:} 			  & \textbf{Cloud Firestore} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Servicio que posibilita el guardado y carga de las rutas obtenidas por la aplicación. \\
+		\textbf{Tipo}                 & Sistema \\
+		\textbf{Objetivo}             & Guardar y cargar Eco City Tours generados por el Usuario~(\ref{actor:usuario}). \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Guardar ruta generada.
+			\item Cargar en el mapa el Eco City Tour guardado en base de datos.
+			\item Borrar los Eco City Tour almacenados.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU04(\ref{cu:guardar-tour}), CU05(\ref{cu:cargar-tour}) \\
+		\bottomrule
+	\end{tabularx}
+	\caption{A02 - Cloud Firestore}
+	\label{actor:firestore}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor-ID}    & A03 \\
+		\toprule
+		\textbf{Nombre: } 			  & \textbf{Gemini-pro 1.5} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Servicio externo que proporciona una lista de puntos de interés (POI) basados en las propiedades de configuración de la ruta. \\
+		\textbf{Tipo}                 & Sistema \\
+		\textbf{Objetivo}             & Suministrar información relevante sobre puntos de interés en función de los criterios del usuario. \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Consultar la información de \acrshort{pdi} según las preferencias de búsqueda del usuario.
+			\item Enviar los datos de los \acrfull{pdi} a la aplicación para generar la ruta.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU01.1(\ref{cu:calcular-tour})\\
+		\bottomrule
+	\end{tabularx}
+	\caption{A03 - Gemini Pro 1.5}
+	\label{actor:gemini}
+\end{table}
+
+\begin{table}[H]
+	\centering
+
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor-ID}    & A04 \\
+		\toprule
+		\textbf{Nombre: } 			  & \textbf{Google Places Service} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Servicio externo encargado de mejorar la información sobre los puntos de interés proporcionando detalles adicionales como descripciones, fotos y valoraciones. \\
+		\textbf{Tipo}                 & Sistema \\
+		\textbf{Objetivo}             & Enriquecer la información de los \acrlong{pdi} para que el usuario obtenga datos detallados y actualizados sobre cada lugar. \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Proveer información detallada sobre los \acrshort{pdi}.
+			\item Enviar las descripciones, fotos y valoraciones de los \acrshort{pdi} a la aplicación.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU01.1 (\ref{cu:calcular-tour})\\
+		\bottomrule
+	\end{tabularx}
+	\caption{A04 - Google Places Service}
+	\label{actor:google-places}
+\end{table}
+
+\begin{table}[H]
+	\centering
+
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor-ID}    & A05 \\
+		\toprule
+		\textbf{Nombre: } 			  & \textbf{Google Direction Service} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Servicio externo encargado de generar una ruta actualizada entre los \acrshort{pdi} que componen el Eco City Tour. \\
+		\textbf{Tipo}                 & Sistema \\
+		\textbf{Objetivo}             & Proveer la mejor ruta a mostrar en el mapa que conecte los \acrshort{pdi} de cada \textit{Eco City Tour} en cada momento. \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Generar el camino que ha de seguir el usuario de manera más corta según el medio de transporte elegido.
+			\item Actualizar en cada momento el camino más corto entre los distintos lugares.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU01.1 (\ref{cu:calcular-tour})CU02 (\ref{cu:navegar-mapa}) \\
+		\bottomrule
+	\end{tabularx}
+	\caption{A05 - Google Direction Service}
+	\label{actor:google-directions}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{Actor-ID}    & A06 \\
+		\toprule
+		\textbf{Nombre: }			  & \textbf{Crashlytics} \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Servicio externo encargado de registrar en todo momento si se produce un error en la ejecución de la aplicación. \\
+		\textbf{Tipo}                 & Sistema \\
+		\textbf{Objetivo}             & Dejar constancia en un log de los errores que se puedan llevar a cabo en la ejecución. \\
+		\textbf{Responsabilidades}    & 
+		\begin{itemize}
+			\tightlist
+			\item Detectar errores fatales en la ejecución de la aplicación.
+			\item Registrar en la nube los detalles que formaron la excepción, para posterior análisis.
+		\end{itemize}\\
+		\textbf{Relaciones con casos de uso} & CU06 (\ref{cu:registro-log}) \\
+		\bottomrule
+	\end{tabularx}
+	\caption{A06 - Crashlytics}
+		\label{actor:crashlytics}
+\end{table}
+
+\subsection{Casos de uso}
+\label{subsec:casos-uso}
+
+\subsection{CU00 - Caso de uso de inicialización. Configuración GPS}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{CU00-Gestión-de-GPS}
+	\caption{Diagrama de caso de uso CU00 - Configuración GPS}
+	\label{fig:CU00-Gestión-de-GPS}
+\end{figure}
+
+Este caso de uso es fundamental, ya que sin el permiso de GPS o la activación del sensor, el resto de funcionalidades de la aplicación no pueden ejecutarse. Para mayor claridad y facilitar la lectura de los diagramas restantes, se presenta por separado, destacando su papel como requisito previo para las demás operaciones.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU00}    & \textbf{Configuración GPS} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario (\ref{actor:usuario}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-1, RF-2 \\
+		\textbf{Descripción}          & Configura la aplicación para tener acceso a la ubicación mediante GPS. \\
+		\textbf{Precondición}         & La aplicación está instalada y abierta por primera vez o tras haber revocado permisos anteriormente. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item La aplicación solicita permiso para el uso del GPS.
+			\item El usuario concede el permiso.
+			\item La aplicación detecta si el GPS está activado.
+			\item Si el GPS no está activado, solicita al usuario activarlo.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La aplicación tiene acceso a la ubicación en tiempo real. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item El usuario no concede el permiso de GPS.
+			\item El usuario no activa el GPS cuando se le solicita.
+		\end{itemize}\\
+		\textbf{Importancia}          & Alta \\
+		\textbf{Casos de Prueba}      & 
+		\begin{itemize}
+			\tightlist
+			\item \textbf{Prueba 1 - Permiso concedido:} La aplicación solicita y obtiene acceso al GPS cuando el usuario concede el permiso.\vspace{2pt}
+			\item \textbf{Prueba 2 - Permiso denegado:} El usuario deniega el permiso. La aplicación no avanza al mapa y no permite operar sobre la aplicación. \vspace{2pt}
+			\item \textbf{Prueba 3 - GPS desactivado:} El GPS está apagado. La aplicación solicita activación y detecta si el usuario lo enciende.
+		\end{itemize}\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU00 Configuración GPS}
+\end{table}
+
+
+
+\subsection{Casos de uso general}
+
+\begin{figure}[H]
+	\centering
+	\hspace*{-2cm}
+	\includegraphics[scale=0.6]{casos-de-uso}
+	\caption{Diagrama de casos de uso general de Eco City Tours}
+	\label{fig:casos-de-uso}
+\end{figure}
+
+\subsection{CU01 - Configuración de parámetros Eco City Tour}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU01}    & \textbf{Configuración parámetros Eco City Tour} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario (\ref{actor:usuario}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-5 \\
+		\textbf{Descripción}          & Configurar los parámetros necesarios para generar un Eco City Tour personalizado según las propiedades de configuración de la ruta. \\
+		\textbf{Precondición}         & El usuario accede a la pantalla de configuración. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario completa el formulario de preferencias, incluyendo el lugar, número de \acrshort{pdi}, selecciona un asistente \acrshort{ia} (cultura, aventura o romántico), selecciona un medio de transporte y tiempo máximo.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Los parámetros quedan configurados y listos para generar la ruta. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item El usuario no completa el formulario de configuración.
+			\item Error en la carga de los datos de configuración.
+		\end{itemize}\\
+		\textbf{Importancia}          & Alta \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Configuración correcta:} El usuario completa el formulario correctamente con todos los campos requeridos. El sistema guarda los parámetros y los muestra confirmados en el log del modo debug.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Campos vacíos:} El usuario deja el formulario sin modificar. El sistema muestra un \textit{Eco City Tour} en la mejor ciudad del mundo: Salamanca.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Valores límites:} El usuario introduce valores límite en los campos. El sistema valida los parámetros y los procesa correctamente.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU01 Configuración parámetros Eco City Tour}
+	\label{cu:config-parametros}
+\end{table}
+
+
+\subsection{CU01.1 - Calcular \gls{eco-city-tour}[]}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU01.1}    & \textbf{Calcular Eco City Tour} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A03 (\ref{actor:gemini}), A04 (\ref{actor:google-places}), A05 (\ref{actor:google-directions}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-6, RF-8 \\
+		\textbf{Descripción}          & Generar una ruta optimizada conectando los puntos de interés seleccionados en función de las propiedades de configuración de la ruta. \\
+		\textbf{Precondición}         & Los parámetros han sido configurados correctamente. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario confirma la configuración de preferencias.
+			\item El sistema consulta un LLM para obtener \acrshort{pdi} basados en las propiedades de configuración de la ruta.
+			\item El sistema envía los \acrshort{pdi} a Google Places para obtener información mejorada.
+			\item El sistema consulta un servicio de optimización de rutas para generar la ruta optimizada.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La ruta optimizada es calculada y lista para ser visualizada. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Fallo en la conexión con el LLM.
+			\item Error en el servicio de optimización de rutas.
+		\end{itemize}\\
+		\textbf{Importancia}          & Alta \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Configuración correcta:} El usuario confirma los parámetros correctamente. El sistema calcula la ruta sin errores y muestra los \acrlong{pdi} optimizados.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Fallo en el LLM:} El sistema no obtiene respuesta del LLM. Se muestra un mensaje de error y se sugiere reintentar la consulta.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Servicio de rutas inalcanzable:} El sistema no puede conectarse al servicio de optimización de rutas (Google Directions). El sistema notifica el fallo al usuario y permite volver a intentarlo.
+			\vspace{2pt}
+			\item \textbf{Prueba 4 - Valores límite en parámetros:} El usuario configura un número mínimo y máximo de \acrshort{pdi}. El sistema muestra correctamente estos valores calculando la ruta.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU01.1 Calcular Eco City Tour}
+	\label{cu:calcular-tour}
+\end{table}
+
+
+\subsection{CU02 - Navegar en el mapa}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02}    & \textbf{Navegar en el mapa} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Actor}                & A01 Usuario (\ref{actor:usuario}) \\
+		\textbf{Requisitos asociados} & RF-4 \\
+		\textbf{Descripción}          & El usuario puede desplazarse y explorar el mapa interactivo de la aplicación. \\
+		\textbf{Precondición}         & El mapa está visible. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario explora el mapa desplazándose y haciendo zoom.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario navega por el mapa para observar los \acrshort{pdi} y la ruta. \\
+		\textbf{Importancia}          & Media \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Desplazamiento funcional:} El usuario desplaza el mapa arrastrando la pantalla con un gesto táctil. El sistema responde correctamente mostrando las áreas correspondientes sin retraso injustificado.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Zoom funcional:} El usuario realiza gestos de zoom in y zoom out en el mapa. El sistema aumenta y reduce el nivel de zoom de manera fluida.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Carga de marcadores (\acrshort{pdi}):} Al navegar, los puntos de interés (\acrshort{pdi}) se cargan dinámicamente y son visibles sin retrasos en la interfaz.
+			\vspace{2pt}
+			\item \textbf{Prueba 4 - Valores límites de zoom:} El sistema limita correctamente el nivel de zoom máximo y mínimo, evitando desplazamientos inválidos.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02 Navegar en el mapa}
+	\label{cu:navegar-mapa}
+\end{table}
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{CU02-Navegar-mapa}
+	\caption{Diagrama de caso de uso CU02 - Navegar en el mapa}
+	\label{CU02-Navegar-mapa}
+\end{figure}
+
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02.1}    & \textbf{Visualizar detalles de \acrfull{pdi}} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario (\ref{actor:usuario}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-6, RF-11 \\
+		\textbf{Descripción}          & El usuario puede obtener información detallada sobre un punto de interés seleccionado en el mapa. \\
+		\textbf{Precondición}         & La ruta y los puntos de interés están visibles en el mapa. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona un marcador de punto de interés en el mapa.
+			\item El sistema muestra la información detallada del punto de interés.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La información detallada del punto de interés es visible para el usuario. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Fallo en la carga de información del \acrlong{pdi} debido a problemas de conectividad.
+			\item Error en el servicio externo de obtención de información.
+		\end{itemize}\\
+		\textbf{Importancia}          & Alta \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Información accesible:} El usuario selecciona un marcador de \acrshort{pdi} en el mapa. El sistema carga y muestra correctamente el nombre, descripción, imagen y detalles del \acrlong{pdi}.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Punto sin detalles:} El marcador seleccionado corresponde a un \acrshort{pdi} que no tiene información asociada. El sistema muestra la imagen por defecto y el texto en blanco.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02.1 Visualizar detalles de los \acrfull{pdi}}
+	\label{cu:visualizar-detalles}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02.2}    & \textbf{Eliminar \acrlong{pdi}} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 (\ref{actor:usuario}), A05 (\ref{actor:google-directions}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-7, RF-8 \\
+		\textbf{Descripción}          & El usuario puede eliminar puntos de interés de la ruta desde el mapa. \\
+		\textbf{Precondición}         & La ruta ha sido generada y los puntos de interés están visibles en el mapa. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona un punto de interés en el mapa.
+			\item El sistema elimina el punto de interés de la ruta.
+			\item El sistema recalcula la ruta optimizada sin el punto eliminado.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La ruta es recalculada sin el punto de interés eliminado. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en el recálculo de la ruta.
+			\item Problemas de conectividad al intentar actualizar la ruta.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Eliminación exitosa:} El usuario selecciona un \acrshort{pdi} y el sistema lo elimina correctamente de la ruta. El recálculo de la ruta es exitoso.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Error en el recálculo:} El sistema no logra recalcular la ruta después de la eliminación del \acrshort{pdi}. Se muestra un mensaje de error y la ruta previa se mantiene visible.
+			\vspace{2pt}
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02.2 Eliminar \acrlong{pdi}}
+	\label{cu:eliminar-pdi}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02.3}    & \textbf{Añadir \acrfull{pdi}} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario \ref{actor:usuario} \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-8, RF-9 \\
+		\textbf{Descripción}          & El usuario puede añadir manualmente un nuevo \acrshort{pdi} a la ruta introduciendo su nombre en la barra de búsqueda. \\
+		\textbf{Precondición}         & La ruta ha sido generada previamente. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario introduce el nombre de un lugar en la barra de búsqueda.
+			\item El sistema muestra el resultado de la búsqueda y el usuario lo selecciona para añadirlo.
+			\item El sistema recalcula la ruta optimizada incluyendo el nuevo \acrlong{pdi}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El nuevo lugar es añadido a la ruta, y la ruta optimizada es recalculada. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item El lugar no se encuentra en el servicio de búsqueda.
+			\item Fallo en el recalculo de la ruta.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Añadir \acrshort{pdi} exitoso:} El usuario introduce el nombre del lugar, el sistema lo encuentra y lo añade correctamente. La ruta es recalculada y optimizada.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Lugar no encontrado:} El usuario introduce un nombre de lugar inexistente. El sistema muestra el listado de lugares vacío pero permite al usuario volver a buscar otro lugar o volver al mapa.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Cálculo de ruta muy larga:} El usuario selecciona un lugar válido, pero no es el que se esperaba al encontrarse muy lejos. El sistema es capaz de ejecutar el cálculo aunque le lleve más tiempo al ser una tarea síncrona. El \acrshort{pdi} se puede eliminar manualmente por el usuario.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02.3 Añadir \acrfull{pdi}}
+	\label{cu:añadir-pdi}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02.4}    & \textbf{Unirse a la ruta calculada} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario \ref{actor:usuario} \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-10 \\
+		\textbf{Descripción}          & Permite al usuario unirse a una ruta previamente generada desde su ubicación actual. \\
+		\textbf{Precondición}         & Una ruta ya ha sido generada y está activa. No hace falta que esté activado el seguimiento en vivo. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona la opción para unirse a la ruta desde su ubicación actual.
+			\item El sistema calcula la ruta más corta para conectar la ubicación actual del usuario con la ruta generada.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario es guiado desde su ubicación actual hasta la ruta generada. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en el cálculo de la ruta de conexión.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Unirse a la ruta exitosa:} El usuario selecciona la opción para unirse y el sistema calcula correctamente la ruta de conexión.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Ubicación inválida:} El sistema no puede determinar la ubicación actual del usuario. Se muestra la unión al punto más cercano viable del usuario. p.e. si está en mitad del mar lo situaría en la costa.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Ruta previa no generada:} El usuario intenta unirse sin que exista una ruta activa pues es el único punto de la ruta. No se muestra ninguna ruta pero la ubicación formará parte de ella si se añade otra ruta.
+			\vspace{2pt}
+			\item \textbf{Prueba 4 - Unirse a ruta si está ya unido:} El usuario no puede tener activado el botón de unirse a ruta para evitar el conflicto de unirse múltiples veces.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02.4 Unirse a la ruta calculada}
+	\label{cu:unirse-ruta}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU02.5}    & \textbf{Añadir seguimiento del usuario} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario (\ref{actor:usuario}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-3 \\
+		\textbf{Descripción}          & Permite al usuario activar o desactivar el seguimiento de su posición en tiempo real en el mapa. \\
+		\textbf{Precondición}         & La aplicación tiene acceso a la ubicación del usuario. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona la opción de activar o desactivar el seguimiento de su ubicación en el mapa.
+			\item El sistema ajusta el mapa para mostrar o dejar de mostrar el movimiento del usuario en tiempo real.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El mapa sigue o deja de seguir la posición del usuario en tiempo real. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Problemas de conexión con el GPS.
+			\item Pérdida de señal GPS.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Seguimiento activado:} El usuario activa el seguimiento. El mapa ajusta su vista en tiempo real conforme a la ubicación del usuario.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Seguimiento desactivado:} El usuario desactiva el seguimiento. El mapa deja de ajustarse a la posición del usuario.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Señal GPS débil:} La señal del GPS se pierde temporalmente. El sistema mantendrá la ubicación del usuario en la última ubicación proporcionada (realizado por el Sistema).
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU02.5 Añadir seguimiento del usuario}
+	\label{cu:añadir-seguimiento}
+\end{table}
+
+
+
+\subsection{CU03 - Ver resumen Eco City Tour}
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU03}    & \textbf{Ver resumen Eco City Tour} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01 Usuario \ref{actor:usuario} \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-4, RF-8 \\
+		\textbf{Descripción}          & Muestra un resumen de la ruta generada, incluyendo la distancia, duración y medio de transporte. \\
+		\textbf{Precondición}         & La ruta ha sido generada. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la pantalla de resumen.
+			\item La aplicación muestra los detalles de la ruta, incluyendo distancia total, tiempo estimado y transporte elegido.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El resumen es visible para el usuario. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en la carga de los datos de la ruta.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Resumen completo visible:} El usuario accede a la pantalla de resumen y todos los detalles (distancia, duración y transporte) se muestran correctamente.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Valores límite de distancia y tiempo:} Validar que el sistema maneja correctamente valores grandes (e.g., rutas muy largas) y pequeños (e.g., rutas cortas de menos de 1 km).
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Eco City Tour vacío:} Desde la pantalla se eliminan todos los \acrshort{pdi} lo que devuelve al usuario a la pantalla del mapa pues no tiene información útil que mostrar.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU03 Ver resumen Eco City Tour}
+	\label{cu:resumen}
+\end{table}
+
+
+\subsection{CU04 - Guardar Eco City Tour}
+\begin{table}[H]
+	\centering
+	
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU04}    & \textbf{Guardar Eco City Tour} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01~\ref{actor:usuario}, A02~\ref{actor:firestore} \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-12 \\
+		\textbf{Descripción}          & Permite al usuario guardar la ruta generada para acceder a ella en el futuro. \\
+		\textbf{Precondición}         & La ruta ha sido generada. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona la opción de guardar la ruta.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La ruta queda guardada en el sistema. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en el guardado de la ruta.
+			\item Problemas de conexión con la base de datos.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Guardado exitoso:} El usuario guarda una ruta y verifica que esta aparece correctamente en el sistema.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Valores límite:} Comprobar el guardado de rutas con diferentes tamaños (e.g., desde una ruta vacía hasta rutas con el número máximo permitido).
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Error en la conexión:} Simular la pérdida de conexión (al limitar los permisos de escritura en Firestore) al intentar guardar una ruta y verificar que el sistema muestra un mensaje de error claro sin comprometer la estabilidad.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU04 Guardar Eco City Tour}
+	\label{cu:guardar-tour}
+\end{table}
+
+
+\subsection{CU05 - Cargar Eco City Tour}
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU05}    & \textbf{Cargar Eco City Tour} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A01~\ref{actor:usuario}, A02~\ref{actor:firestore} \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Requisitos asociados} & RF-12 \\
+		\textbf{Descripción}          & Permite al usuario cargar una ruta guardada previamente. \\
+		\textbf{Precondición}         & El usuario ha guardado al menos una ruta. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona la opción de cargar una ruta guardada.
+			\item El usuario selecciona un Eco City Tour guardado previamente que será cargado.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La ruta es cargada y visible en el mapa. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en la carga de la ruta guardada.
+			\item Problemas de conexión con la base de datos.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Carga exitosa:} El usuario selecciona y carga una ruta guardada, verificando que esta aparece correctamente en el mapa.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Valores límite:} Validar la carga de rutas guardadas vacías y rutas con el número máximo de \acrshort{pdi}.
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Rutas no existente:} La pantalla de carga solo muestra los Eco City Tour asociados al usuarios y no todos los creados por todos los usuarios y si no tiene ninguno es capaz de mostrar la pantalla vacía con un mensaje amigable.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU05 Cargar Eco City Tour}
+	\label{cu:cargar-tour}
+\end{table}
+
+
+\subsection{CU06 - Registro de log}
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU06}    & \textbf{Registro de log} \\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Actor}                & A06~(\ref{actor:crashlytics}) \\
+		\textbf{Autor}                & \autor \\
+		\textbf{Descripción}          & Registra los eventos y actividades del usuario en la aplicación para fines de monitorización y depuración. \\
+		\textbf{Precondición}         & La aplicación está en funcionamiento. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item La aplicación registra automáticamente los eventos relevantes.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Los eventos quedan registrados en el sistema. \\
+		\textbf{Excepciones}          & 
+		\begin{itemize}
+			\tightlist
+			\item Error en la conexión con el sistema de registros.
+			\item Fallo en la escritura de los eventos en el log.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\textbf{Casos de Prueba}      &
+		\begin{itemize}
+			\item \textbf{Prueba 1 - Registro exitoso:} Verificar que los eventos importantes (inicio de sesión, selección de ruta, activación del GPS) se registran correctamente en el sistema de logs.
+			\vspace{2pt}
+			\item \textbf{Prueba 2 - Evento límite:} Validar que se registran eventos con mensajes largos o múltiples detalles (e.g., error detallado con trazas largas).
+			\vspace{2pt}
+			\item \textbf{Prueba 3 - Registro de una caída de la aplicación:} Se puede simular un cierre inesperado que debe ser notificado y visible desde la consola de Crashlytics.
+		\end{itemize} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU06 Registro de log}
+	\label{cu:registro-log}
+\end{table}
+
+
+
